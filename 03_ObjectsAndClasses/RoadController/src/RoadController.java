@@ -1,28 +1,24 @@
 import core.*;
 import core.Camera;
-
 import java.util.Scanner;
 
-public class RoadController
-{
-    private static double passengerCarMaxWeight = 3500.0; // kg
-    private static int passengerCarMaxHeight = 2000; // mm
-    private static int controllerMaxHeight = 4000; // mm
+public class RoadController {
 
-    private static int passengerCarPrice = 100; // RUB
-    private static int cargoCarPrice = 250; // RUB
-    private static int vehicleAdditionalPrice = 200; // RUB
+    private static double passengerCarMaxWeight = 3500.0; // kg ПОЛЕ КЛАССА
+    private static int passengerCarMaxHeight = 2000; // mm ПОЛЕ КЛАССА
+    private static int controllerMaxHeight = 3500; // mm ПОЛЕ КЛАССА
+    private static int passengerCarPrice = 100; // RUB ПОЛЕ КЛАССА
+    private static int cargoCarPrice = 250; // RUB ПОЛЕ КЛАССА
+    private static int vehicleAdditionalPrice = 200; // RUB ПОЛЕ КЛАССА
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         System.out.println("Сколько автомобилей сгенерировать?");
 
-        Scanner scanner = new Scanner(System.in);
-        int carsCount = scanner.nextInt();
+        Scanner scanner = new Scanner(System.in); // объект типа Scanner
+        int carsCount = scanner.nextInt(); // кол-во машин для расчета
 
-        for(int i = 0; i < carsCount; i++)
-        {
-            Car car = Camera.getNextCar();
+        for (int i = 0; i < carsCount; i++) {
+            Car car = Camera.getNextCar(); // новый объект типа Car
             System.out.println(car);
 
             //Пропускаем автомобили спецтранспорта бесплатно
@@ -32,8 +28,8 @@ public class RoadController
             }
 
             //Проверяем высоту и массу автомобиля, вычисляем стоимость проезда
-            int price = calculatePrice(car);
-            if(price == -1) {
+            int price = calculatePrice(car); // стоимость проезда
+            if (price == -1) {
                 continue;
             }
 
@@ -44,32 +40,24 @@ public class RoadController
     /**
      * Расчёт стоимости проезда исходя из массы и высоты
      */
-    private static int calculatePrice(Car car)
-    {
-        int carHeight = car.height;
-        int price = 0;
-        if (carHeight > controllerMaxHeight)
-        {
+    private static int calculatePrice(Car car) {
+        int carHeight = car.height; // высота машины
+        int price; // цена проезда для возврата из метода
+        if (carHeight > controllerMaxHeight) {
             blockWay("высота вашего ТС превышает высоту пропускного пункта!");
             return -1;
-        }
-        else if (carHeight > passengerCarMaxHeight)
-        {
-            double weight = car.weight;
+        } else if (carHeight > passengerCarMaxHeight) {
+            double weight = car.weight; // вес авто
             //Грузовой автомобиль
-            if (weight > passengerCarMaxWeight)
-            {
-                price = passengerCarPrice;
+            if (weight > passengerCarMaxWeight) {
+                price = cargoCarPrice;
                 if (car.hasVehicle) {
                     price = price + vehicleAdditionalPrice;
                 }
+            } else { //Легковой автомобиль
+                price = passengerCarPrice;
             }
-            //Легковой автомобиль
-            else {
-                price = cargoCarPrice;
-            }
-        }
-        else {
+        } else {
             price = passengerCarPrice;
         }
         return price;
