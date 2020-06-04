@@ -73,8 +73,9 @@ public class Cat {
 
     public Cat cloneCat(Cat cat) {
         Cat c = new Cat(cat.getWeight());
-        this.color = cat.getColor();
-        this.totalFeed = cat.getTotalFeed();
+        c.color = cat.getColor();
+        c.totalFeed = cat.getTotalFeed();
+        count--;
         return c;
     }
 
