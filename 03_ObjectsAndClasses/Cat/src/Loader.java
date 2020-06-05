@@ -22,28 +22,21 @@ public class Loader {
         System.out.println(Cat.getCount() + "  vasya  " + vasya.getStatus() + "\t" + vasya.getWeight() + "\t" + vasya.getTotalFeed());
         System.out.println(Cat.getCount() + "  musya  " + musya.getStatus() + "\t" + musya.getWeight() + "\t" + musya.getTotalFeed());
         Cat bars = new Cat(CatHairColor.RED);
-        String st = bars.getStatus();
         System.out.println("============================================================");
-        System.out.println(Cat.getCount() + "  bars  " + st + "\t" + bars.getWeight());
-        do {
+        System.out.println(Cat.getCount() + "  bars  " + bars.getStatus() + "\t" + bars.getWeight());
+        while (bars.getIsAlive()) {
             bars.meow();
             bars.meow();
             bars.toilette();
-            System.out.println(Cat.getCount() + "  bars  " + bars.getWeight());
-            st = bars.getStatus();
-        } while (! st.equals("Dead"));
-        System.out.println(Cat.getCount() + "  bars  " + st + "\t" + bars.getWeight());
-
+            System.out.println(Cat.getCount() + "  bars  " + bars.getStatus() + "\t" + bars.getWeight());
+        }
         Cat pers = new Cat(3000.0);
-        st = pers.getStatus();
         System.out.println("============================================================");
-        System.out.println(Cat.getCount() + "  pers  " + st + "\t" + pers.getWeight());
-        do {
-            pers.feed(1.5);
-            pers.drink(1.5);
-            System.out.println(Cat.getCount() + "  pers  " + pers.getWeight());
-            st = pers.getStatus();
-        } while (! st.equals("Exploded"));
-        System.out.println(Cat.getCount() + "  pers  " + st + "\t" + pers.getWeight() + "\t" + pers.getTotalFeed());
+        System.out.println(Cat.getCount() + "  pers  " + pers.getStatus() + "\t" + pers.getWeight());
+        while (pers.getIsAlive()) {
+            pers.feed(22.5);
+            pers.drink(22.5);
+            System.out.println(Cat.getCount() + "  pers  " + pers.getStatus() + "\t" + pers.getWeight() + "\t" + pers.getTotalFeed());
+        }
     }
 }

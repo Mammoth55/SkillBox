@@ -5,6 +5,7 @@ public class Cat {
     private double weight;
     private double totalFeed;
     private CatHairColor color;
+    private boolean isAlive;
 
     private static int count;
 
@@ -15,7 +16,7 @@ public class Cat {
     public Cat() {
         weight = 3000.0 * Math.random() + 1500.0;
         originWeight = weight;
-        totalFeed = 0;
+        isAlive = true;
         count++;
     }
 
@@ -31,24 +32,52 @@ public class Cat {
     }
 
     public void toilette() {
-        weight -= 70 * Math.random() + 30;
-        System.out.println("Sorry, dig that in, please...");
+        if (isAlive) {
+            weight -= 70 * Math.random() + 30;
+            System.out.println("Sorry, dig that in, please...");
+            checkStatus();
+        } else {
+            System.out.println("Leave me R.I.P.");
+        }
     }
 
     public void meow() {
-        weight--;
-        System.out.println("Meow");
+        if (isAlive) {
+            weight--;
+            System.out.println("Meow");
+            checkStatus();
+        } else {
+            System.out.println("Leave me R.I.P.");
+        }
     }
 
     public void feed(Double amount) {
-        weight += amount;
-        totalFeed += amount;
-        System.out.println("Nyam-nyam");
+        if (isAlive) {
+            weight += amount;
+            totalFeed += amount;
+            System.out.println("Nyam-nyam");
+            checkStatus();
+        } else {
+            System.out.println("Leave me R.I.P.");
+        }
     }
 
     public void drink(Double amount) {
-        weight += amount;
-        System.out.println("Bool-bool");
+        if (isAlive) {
+            weight += amount;
+            System.out.println("Bool-bool");
+            checkStatus();
+        } else {
+            System.out.println("Leave me R.I.P.");
+        }
+    }
+
+    public boolean getIsAlive() {
+        return isAlive;
+    }
+
+    public void setIsAlive(boolean live) {
+        isAlive = live;
     }
 
     public CatHairColor getColor() {
@@ -74,22 +103,26 @@ public class Cat {
     public Cat cloneCat(Cat cat) {
         Cat c = new Cat(cat.getWeight());
         c.color = cat.getColor();
+        c.isAlive = cat.isAlive;
         c.totalFeed = cat.getTotalFeed();
         count--;
         return c;
     }
 
+    public void checkStatus() {
+        if (weight < MIN_WEIGHT || weight > MAX_WEIGHT) {
+            isAlive = false;
+            count--;
+        }
+    }
+
     public String getStatus() {
         if (weight < MIN_WEIGHT) {
-            count--;
             return "Dead";
         } else if (weight > MAX_WEIGHT) {
-            count--;
             return "Exploded";
         } else if (weight > originWeight) {
             return "Sleeping";
-        } else {
-            return "Playing";
-        }
+        } else return "Playing";
     }
 }
