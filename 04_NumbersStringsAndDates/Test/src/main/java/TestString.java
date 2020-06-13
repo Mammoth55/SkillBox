@@ -8,7 +8,7 @@ public class TestString {
         return text.substring(0, diamondLeft) + placeholder + text.substring(diamondRight + 1);
     }
 
-    public static void main(String[] args) {
+    public static void alphabeticWithCode() {
         for (char c = 'A'; c <= 'Z'; c++) {
             System.out.println(c + "\t" + (int) c);
         }
@@ -21,6 +21,9 @@ public class TestString {
         for (char c = 'а'; c <= 'я'; c++) {
             System.out.println(c + "\t" + (int) c);
         }
+    }
+
+    public static void salaryTotal() {
         String text = "Вася заработал 5000 рублей, Петя - 7563 рубля, а Маша - 30000 рублей";
         int indexFirstEnd = text.indexOf(" руб");
         int indexFirstBegin = text.substring(0, indexFirstEnd).lastIndexOf(" ") + 1;
@@ -33,6 +36,9 @@ public class TestString {
                 + Integer.parseInt(text.substring(indexSecondBegin, indexSecondEnd))
                 + Integer.parseInt(text.substring(indexFirstBegin, indexFirstEnd)))
                 + " руб.");
+    }
+
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         System.out.print("Введите ФИО : ");
         String str = in.nextLine();
@@ -48,6 +54,5 @@ public class TestString {
             space3 += space2 + 1;
         }
         System.out.println("Отчество : " + str.substring(space2 + 1, space3));
-        System.out.println(searchAndReplaceDiamonds("Card <1234 2345 3456>6789", "***"));
     }
 }
