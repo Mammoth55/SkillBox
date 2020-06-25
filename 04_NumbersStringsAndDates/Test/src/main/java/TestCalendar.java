@@ -11,8 +11,9 @@ public class TestCalendar {
 
     public static void main(String[] args) {
         Calendar calendar = new GregorianCalendar(YEAR, MONTH , DAY);
+        Calendar calendarToday = new GregorianCalendar();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy - E", Locale.ENGLISH);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; calendar.before(calendarToday); i++) {
             System.out.println(i + " - " + dateFormat.format(calendar.getTime()));
             calendar.add(Calendar.YEAR, 1);
         }
