@@ -25,9 +25,10 @@ public class Account {
         return balance;
     }
 
-    public void incrementBalance(double amount) {
+    public boolean incrementBalance(double amount) {
         this.balance += amount;
         this.addDate = new GregorianCalendar();
+        return true;
     }
 
     public boolean decrementBalance(double amount) {
