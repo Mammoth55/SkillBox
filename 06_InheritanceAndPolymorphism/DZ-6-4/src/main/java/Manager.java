@@ -7,6 +7,6 @@ public class Manager extends CoWorker implements Employee {
 
     @Override
     public double getMonthSalary() {
-        return this.company.fixedPartManagerSalary + 0.05 * this.bonusBase;
+        return this.getCompany().getFixedPartSalaries().get(this.getClass()) + 0.05 * this.getBonusBase();
     }
 }

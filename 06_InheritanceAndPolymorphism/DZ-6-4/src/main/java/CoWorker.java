@@ -1,10 +1,10 @@
-public class CoWorker {
+public abstract class CoWorker implements Employee {
 
-    protected Company company;
-    protected String position;
-    protected String name;
-    protected double balance;
-    protected double bonusBase;
+    private Company company;
+    private String position;
+    private String name;
+    private double balance;
+    private double bonusBase;
 
     public CoWorker(Company company, String position, String name, double balance) {
         this.company = company;
@@ -37,11 +37,23 @@ public class CoWorker {
         this.balance = balance;
     }
 
+    @Override
     public double getBonusBase() {
         return bonusBase;
     }
 
+    @Override
     public void setBonusBase(double bonusBase) {
         this.bonusBase = bonusBase;
     }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public abstract double getMonthSalary();
 }

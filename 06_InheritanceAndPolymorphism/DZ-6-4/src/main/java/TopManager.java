@@ -7,7 +7,8 @@ public class TopManager extends CoWorker implements Employee {
 
     @Override
     public double getMonthSalary() {
-        return this.company.getIncome() > 9999999 ?
-                this.company.fixedPartTopManagerSalary * 2.5 : this.company.fixedPartTopManagerSalary;
+        return this.getCompany().getIncome() > 9999999 ?
+                this.getCompany().getFixedPartSalaries().get(this.getClass()) * 2.5
+                : this.getCompany().getFixedPartSalaries().get(this.getClass());
     }
 }

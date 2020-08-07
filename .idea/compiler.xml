@@ -8,15 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="GeometryCalculator" />
         <module name="05_ArraysAndCollections" />
-        <module name="06_InheritanceAndPolymorphism" />
         <module name="AirForces" />
         <module name="Test" />
+        <module name="DZ-6-4" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="13">
       <module name="05_ArraysAndCollections" target="13" />
       <module name="06_InheritanceAndPolymorphism" target="13" />
       <module name="AirForces" target="13" />
+      <module name="DZ-6-4" target="13" />
       <module name="GeometryCalculator" target="13" />
       <module name="Test" target="13" />
     </bytecodeTargetLevel>

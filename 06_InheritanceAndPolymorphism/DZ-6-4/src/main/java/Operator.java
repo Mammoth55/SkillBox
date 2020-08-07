@@ -7,6 +7,6 @@ public class Operator extends CoWorker implements Employee {
 
     @Override
     public double getMonthSalary() {
-        return this.company.fixedPartOperatorSalary;
+        return this.getCompany().getFixedPartSalaries().get(this.getClass());
     }
 }
