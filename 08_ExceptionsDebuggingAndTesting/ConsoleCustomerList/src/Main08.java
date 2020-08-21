@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main
+public class Main08
 {
     private static String addCommand = "add Василий Петров " +
             "vasily.petrov@gmail.com +79215637722";

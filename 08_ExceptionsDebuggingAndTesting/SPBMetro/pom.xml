@@ -31,7 +31,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>Main</mainClass>
+                            <mainClass>Main07</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

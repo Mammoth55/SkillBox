@@ -1,14 +1,11 @@
 import com.skillbox.airport.Airport;
 import com.skillbox.airport.Flight;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Stream;
 
-public class Main {
+public class Main07 {
     
     private static String staffFile
             = "C:\\projects\\SkillBox\\java_basics\\07_AdvancedOOPFeatures\\LambdaExpressions\\data\\staff.txt";
