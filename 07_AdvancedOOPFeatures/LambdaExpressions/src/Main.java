@@ -1,3 +1,6 @@
+import com.skillbox.airport.Airport;
+import com.skillbox.airport.Flight;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -37,12 +40,24 @@ public class Main {
 
     public static void main(String[] args) {
         ArrayList<Employee> staff = loadStaffFromFile();
-        Collections.sort(staff, (e1, e2) -> {
-            int rsl = e1.getSalary().compareTo(e2.getSalary());
-            return rsl != 0 ? rsl : e1.getName().compareTo(e2.getName());
-        });
-        for (Employee emp: staff) {
-            System.out.println(emp);
+        staff.stream()
+                .filter(e -> e.getWorkStart().after( new Date(116, 11, 31)))
+                .filter(e -> e.getWorkStart().before(new Date(118, 00, 01)))
+                .max(Comparator.comparing(Employee::getSalary))
+                .ifPresent(System.out::println);
+        Airport airport = Airport.getInstance();
+        Date currentDate = new Date();
+        int currentHour = currentDate.getHours();
+        if (currentHour >= 22) {
+            currentHour -= 24;
         }
+        final int cur = currentHour;
+        airport.getTerminals().stream().flatMap(t -> t.getFlights().stream())
+                .filter(f -> f.getType() == Flight.Type.DEPARTURE
+                        && (f.getDate().getHours() - cur) * 60
+                        + f.getDate().getMinutes() - currentDate.getMinutes() <= 120
+                        && (f.getDate().getHours() - cur) * 60
+                        + f.getDate().getMinutes() - currentDate.getMinutes() >= 0)
+                .forEach(f -> System.out.println(f + " / " + f.getAircraft()));
     }
 }
