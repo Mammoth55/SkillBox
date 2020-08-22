@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-public class Main08
-{
+public class Main08 {
+
     private static String addCommand = "add Василий Петров " +
             "vasily.petrov@gmail.com +79215637722";
     private static String commandExamples = "\t" + addCommand + "\n" +
@@ -10,31 +10,34 @@ public class Main08
             commandExamples;
     private static String helpText = "Command examples:\n" + commandExamples;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         CustomerStorage executor = new CustomerStorage();
-        for(;;)
+        while (true)
         {
             String command = scanner.nextLine();
             String[] tokens = command.split("\\s+", 2);
-            if(tokens[0].equals("add")) {
-                executor.addCustomer(tokens[1]);
-            }
-            else if(tokens[0].equals("list")) {
-                executor.listCustomers();
-            }
-            else if(tokens[0].equals("remove"))
-            {
-                executor.removeCustomer(tokens[1]);
-            }
-            else if(tokens[0].equals("count")) {
-                System.out.println("There are " + executor.getCount() + " customers");
-            }
-            else if(tokens[0].equals("help")) {
-                System.out.println(helpText);
-            }
-            else {
+            try {
+                switch (tokens[0]) {
+                    case "add" :
+                        executor.addCustomer(tokens[1]);
+                        break;
+                    case "list" :
+                        executor.listCustomers();
+                        break;
+                    case "remove" :
+                        executor.removeCustomer(tokens[1]);
+                        break;
+                    case "count" :
+                        System.out.println("There are " + executor.getCount() + " customers");
+                        break;
+                    case "help" :
+                        System.out.println(helpText);
+                        break;
+                    default :
+                        System.out.println(commandError);
+                }
+            } catch (Exception ex) {
                 System.out.println(commandError);
             }
         }
