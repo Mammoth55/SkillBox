@@ -3,6 +3,7 @@ import com.skillbox.airport.Flight;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Main07 {
@@ -35,26 +36,39 @@ public class Main07 {
         return staff;
     }
 
-    public static void main(String[] args) {
+    private static void printFlight(Flight f) {
+        System.out.println(f.getDate() + " / " + f.getAircraft());
+    }
+
+    private static void salarySort() {
         ArrayList<Employee> staff = loadStaffFromFile();
+        Calendar startPeriod = Calendar.getInstance();
+        Calendar endPeriod = Calendar.getInstance();
+        startPeriod.set(2017, Calendar.JANUARY, 1);
+        endPeriod.set(2017, Calendar.DECEMBER, 31);
         staff.stream()
-                .filter(e -> e.getWorkStart().after( new Date(116, 11, 31)))
-                .filter(e -> e.getWorkStart().before(new Date(118, 00, 01)))
+                .filter(e -> e.getWorkStart().after(startPeriod.getTime())
+                        && e.getWorkStart().before(endPeriod.getTime()))
                 .max(Comparator.comparing(Employee::getSalary))
                 .ifPresent(System.out::println);
+    }
+
+    private static void flightSort() {
         Airport airport = Airport.getInstance();
-        Date currentDate = new Date();
-        int currentHour = currentDate.getHours();
-        if (currentHour >= 22) {
-            currentHour -= 24;
-        }
-        final int cur = currentHour;
+        Calendar currentDateTime = Calendar.getInstance();
+        Calendar limitDateTime = Calendar.getInstance();
+        limitDateTime.add(Calendar.HOUR, 2);
         airport.getTerminals().stream().flatMap(t -> t.getFlights().stream())
                 .filter(f -> f.getType() == Flight.Type.DEPARTURE
-                        && (f.getDate().getHours() - cur) * 60
-                        + f.getDate().getMinutes() - currentDate.getMinutes() <= 120
-                        && (f.getDate().getHours() - cur) * 60
-                        + f.getDate().getMinutes() - currentDate.getMinutes() >= 0)
-                .forEach(f -> System.out.println(f + " / " + f.getAircraft()));
+                        && f.getDate().after(currentDateTime.getTime())
+                        && f.getDate().before(limitDateTime.getTime()))
+                .sorted(Comparator.comparing(Flight::getDate))
+                .forEach(f -> printFlight(f));
+    }
+
+    public static void main(String[] args) {
+        salarySort();
+        System.out.println("-----------------------------------------------------------------");
+        flightSort();
     }
 }
