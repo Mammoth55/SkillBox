@@ -6,13 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Metro scheme that used in tests:
+ * <pre>{@code
+ *
+ * (Line 1)     Station A   →   Station B
+ *                                  ↓
+ * (Line 2)     Station K   →   Station L
+ *                  ↓
+ * (Line 3)     Station X   →   Station Y
+ *
+ * }</pre>
+ */
+
 class RouteCalculatorTest {
 
-    List<Station> route;
-    StationIndex stationIndex;
-    RouteCalculator calculator;
-    Line line1, line2, line3;
-    Station station11, station12, station21, station22, station31, station32;
+    private List<Station> route;
+    private StationIndex stationIndex;
+    private RouteCalculator calculator;
+    private Line line1, line2, line3;
+    private Station station11, station12, station21, station22, station31, station32;
+    private static final double ROUTE_TIME = 2.5;
+    private static final double CONNECTION_TIME = 3.5;
 
     @BeforeEach
     void setUp() {
@@ -75,8 +90,7 @@ class RouteCalculatorTest {
     @Test
     void calculateDurationWithOneConnection() {
         double actual = RouteCalculator.calculateDuration(route);
-        double expected = 8.5;
-        assertEquals(expected, actual, 0.1);
+        assertEquals(ROUTE_TIME + CONNECTION_TIME + ROUTE_TIME, actual, 0.1);
     }
 
     @Test
@@ -84,7 +98,6 @@ class RouteCalculatorTest {
         route.add(station31);
         route.add(station32);
         double actual = RouteCalculator.calculateDuration(route);
-        double expected = 14.5;
-        assertEquals(expected, actual, 0.1);
+        assertEquals(ROUTE_TIME + CONNECTION_TIME + ROUTE_TIME + CONNECTION_TIME + ROUTE_TIME, actual, 0.1);
     }
 }
