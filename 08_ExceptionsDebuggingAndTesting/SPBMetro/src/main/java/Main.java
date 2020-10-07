@@ -1,5 +1,7 @@
 import core.Line;
 import core.Station;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,19 +16,26 @@ public class Main {
     private static String dataFile = "src/main/resources/map.json";
     private static Scanner scanner;
     private static StationIndex stationIndex;
+    private static Logger loggerSearchFile = LogManager.getLogger("MySearch");
+    private static Logger loggerNotFoundFile = LogManager.getLogger("MySearch.NotFound");
+    private static Logger loggerErrorsFile = LogManager.getLogger("ErrorsFile");
 
     public static void main(String[] args) {
         RouteCalculator calculator = getRouteCalculator();
         System.out.println("Программа расчёта маршрутов метрополитена Санкт-Петербурга\n");
         scanner = new Scanner(System.in);
         for (;;) {
-            Station from = takeStation("Введите станцию отправления:");
-            Station to = takeStation("Введите станцию назначения:");
-            List<Station> route = calculator.getShortestRoute(from, to);
-            System.out.println("Маршрут:");
-            printRoute(route);
-            System.out.println("Длительность: "
-                + RouteCalculator.calculateDuration(route) + " минут");
+            try {
+                Station from = takeStation("Введите станцию отправления:");
+                Station to = takeStation("Введите станцию назначения:");
+                List<Station> route = calculator.getShortestRoute(from, to);
+                System.out.println("Маршрут:");
+                printRoute(route);
+                System.out.println("Длительность: "
+                        + RouteCalculator.calculateDuration(route) + " минут");
+            } catch (Exception e) {
+                loggerErrorsFile.error("Error Exception " + e);
+            }
         }
     }
 
@@ -57,9 +66,11 @@ public class Main {
             String line = scanner.nextLine().trim();
             Station station = stationIndex.getStation(line);
             if (station != null) {
+                loggerSearchFile.info(line + " Станция найдена !");
                 return station;
             }
             System.out.println("Станция не найдена :(");
+            loggerNotFoundFile.warn(line + " Станция не найдена !");
         }
     }
 
@@ -78,7 +89,7 @@ public class Main {
             JSONArray connectionsArray = (JSONArray) jsonData.get("connections");
             parseConnections(connectionsArray);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            loggerErrorsFile.error("Error Exception " + ex);
         }
     }
 
@@ -131,7 +142,7 @@ public class Main {
             List<String> lines = Files.readAllLines(Paths.get(dataFile));
             lines.forEach(line -> builder.append(line));
         } catch (Exception ex) {
-            ex.printStackTrace();
+            loggerErrorsFile.error("Error Exception " + ex);
         }
         return builder.toString();
     }
