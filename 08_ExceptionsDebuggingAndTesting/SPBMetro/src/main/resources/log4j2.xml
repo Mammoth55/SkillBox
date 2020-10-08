@@ -7,37 +7,32 @@
 
     <File name="SearchFile" fileName="logs/search.log">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-      <Filters>
-        <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL" />
-      </Filters>
     </File>
 
     <File name="WrongStation" fileName="logs/input_errors.log">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-      <Filters>
-        <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL" />
-      </Filters>
     </File>
 
     <File name="ErrorsFile" fileName="logs/exceptions.log">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-      <Filters>
-        <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
-      </Filters>
     </File>
   </appenders>
 
   <loggers>
-    <logger name="MySearch">
-      <appender-ref ref="SearchFile" level="info"/>
+    <logger name="MySearch" level="debug">
+      <appender-ref ref="SearchFile" level="debug"/>
     </logger>
 
-    <logger name="MySearch.NotFound">
-      <appender-ref ref="WrongStation" level="warn"/>
+    <logger name="NotFound" level="debug">>
+      <appender-ref ref="WrongStation" level="debug"/>
+    </logger>
+
+    <logger name="Exceptions" level="debug">>
+      <appender-ref ref="ErrorsFile" level="debug"/>
     </logger>
 
     <root level="error">
-      <appender-ref ref="ErrorsFile" level="error"/>
+      <appender-ref ref="Console" level="error"/>
     </root>
   </loggers>
 

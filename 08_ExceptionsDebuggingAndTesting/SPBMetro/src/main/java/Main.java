@@ -17,8 +17,8 @@ public class Main {
     private static Scanner scanner;
     private static StationIndex stationIndex;
     private static Logger loggerSearchFile = LogManager.getLogger("MySearch");
-    private static Logger loggerNotFoundFile = LogManager.getLogger("MySearch.NotFound");
-    private static Logger loggerErrorsFile = LogManager.getLogger("ErrorsFile");
+    private static Logger loggerNotFoundFile = LogManager.getLogger("NotFound");
+    private static Logger loggerErrorsFile = LogManager.getLogger("Exceptions");
 
     public static void main(String[] args) {
         RouteCalculator calculator = getRouteCalculator();
@@ -34,7 +34,7 @@ public class Main {
                 System.out.println("Длительность: "
                         + RouteCalculator.calculateDuration(route) + " минут");
             } catch (Exception e) {
-                loggerErrorsFile.error("Error Exception " + e);
+                loggerErrorsFile.error(e);
             }
         }
     }
@@ -89,7 +89,7 @@ public class Main {
             JSONArray connectionsArray = (JSONArray) jsonData.get("connections");
             parseConnections(connectionsArray);
         } catch (Exception ex) {
-            loggerErrorsFile.error("Error Exception " + ex);
+            loggerErrorsFile.error(ex);
         }
     }
 
@@ -142,7 +142,7 @@ public class Main {
             List<String> lines = Files.readAllLines(Paths.get(dataFile));
             lines.forEach(line -> builder.append(line));
         } catch (Exception ex) {
-            loggerErrorsFile.error("Error Exception " + ex);
+            loggerErrorsFile.error(ex);
         }
         return builder.toString();
     }
