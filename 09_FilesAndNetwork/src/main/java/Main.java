@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static Scanner scanner;
     private static final int MIN_PATH_LENGTH = 4;
 
     public static long getFolderSize(String path) throws IOException {
@@ -21,7 +20,7 @@ public class Main {
 
     private static String getPath(String message) {
         String line;
-        scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         do {
             System.out.println(message);
             line = scanner.nextLine().trim();
