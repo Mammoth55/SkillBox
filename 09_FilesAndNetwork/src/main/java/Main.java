@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static final int MIN_PATH_LENGTH = 4;
-
     public static long getFolderSize(String path) throws IOException {
         Path folder = Paths.get(path);
         return Files.walk(folder)
@@ -18,20 +16,22 @@ public class Main {
                 .sum();
     }
 
-    private static String getPath(String message) {
+    private static String getDirectoryPath(String message) {
         String line;
+        File path;
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println(message);
             line = scanner.nextLine().trim();
-        } while (line.length() < MIN_PATH_LENGTH);
+            path = new File(line);
+        } while (!path.exists() || !path.isDirectory());
         return line;
     }
 
     public static void main(String[] args) {
         String path;
         while (true) {
-            path = getPath("Введите путь к целевой папке (D:\\1 for example) :");
+            path = getDirectoryPath("Введите путь к целевой папке (D:\\1 for example) :");
             try {
                 long size = getFolderSize(path);
                 System.out.println("Объем целевой папки " + path + " составляет " + (size / 1024) + " Kbytes.");

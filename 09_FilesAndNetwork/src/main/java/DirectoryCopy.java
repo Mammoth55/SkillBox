@@ -5,14 +5,12 @@ import java.util.Scanner;
 
 public class DirectoryCopy {
 
-    private static final int MIN_PATH_LENGTH = 4;
-
     public static void main(String[] args) {
         String pathFrom, pathTo;
         try {
             while (true) {
-                pathFrom = getPath("Введите путь к копируемой папке (C:\\From for example) :");
-                pathTo = getPath("Введите путь к папке для копирования (D:\\To for example) :");
+                pathFrom = getDirectoryPath("Введите путь к копируемой папке (C:\\From for example) :");
+                pathTo = getDirectoryPath("Введите путь к папке для копирования (D:\\To for example) :");
                 copyDir(pathFrom, pathTo);
             }
         } catch (Exception ex) {
@@ -20,13 +18,15 @@ public class DirectoryCopy {
         }
     }
 
-    private static String getPath(String message) {
+    private static String getDirectoryPath(String message) {
         String line;
+        File path;
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println(message);
             line = scanner.nextLine().trim();
-        } while (line.length() < MIN_PATH_LENGTH);
+            path = new File(line);
+        } while (!path.exists() || !path.isDirectory());
         return line;
     }
 
