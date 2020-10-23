@@ -44,8 +44,7 @@ public class DirectoryCopy {
                 nextSrcFile = new File(nextSrcFilename);
                 if (nextSrcFile.isDirectory()) {
                     copyDir(nextSrcFilename, nextDstFilename);
-                }
-                else {
+                } else {
                     copyFile(nextSrcFilename, nextDstFilename);
                 }
             }

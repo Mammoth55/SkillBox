@@ -22,7 +22,7 @@ public class BankData {
                 if (len != 8) {
                     if (len == 9) {
                         fragments[7] = fragments[7].substring(1) + "."
-                                + fragments[8].substring(0, fragments[8].length()-2);
+                                + fragments[8].substring(0, fragments[8].length() - 2);
                     } else {
                         System.out.println("Wrong line: " + line);
                         continue;
