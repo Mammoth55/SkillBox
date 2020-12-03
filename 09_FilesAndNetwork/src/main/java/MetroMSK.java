@@ -19,7 +19,7 @@ public class MetroMSK {
     private static List<Line> lines = new ArrayList<>();
     private static List<Station> stations = new ArrayList<>();
     private static List<Connection> connections = new ArrayList<>();
-    private static Map<String, List<String>> stationsOut = new LinkedHashMap<>();
+    private static Map<String, List<String>> stationsOut = new HashMap<>();
     private static List<List<Station>> connectionsOut = new ArrayList<>();
 
     public static void main(String[] args) {

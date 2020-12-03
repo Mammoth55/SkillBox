@@ -2,8 +2,8 @@ import java.util.Objects;
 
 public class Connection {
 
-    Station from;
-    Station to;
+    private Station from;
+    private Station to;
 
     public Connection(Station from, Station to) {
         this.from = from;
