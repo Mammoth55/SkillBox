@@ -22,6 +22,9 @@ public class JDBCExp {
                 System.out.println(resultSet.getString("course_name") + "\t"
                                 + resultSet.getString("SALE_PER_MONTH"));
             }
+            resultSet.close();
+            statement.close();
+            connection.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
