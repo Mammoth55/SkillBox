@@ -11,20 +11,18 @@ public class JDBCExp {
 
     public static void main(String[] args) {
         try {
-            Connection connection = DriverManager.getConnection(URL, USER, PASS);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT course_name, COUNT(*) "
-                    + "/ (max(MONTH(subscription_date)) - min(MONTH(subscription_date))) as SALE_PER_MONTH "
-                    + "from PurchaseList "
-                    + "where YEAR(subscription_date) = 2018 "
-                    + "group by course_name;");
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString("course_name") + "\t"
-                                + resultSet.getString("SALE_PER_MONTH"));
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASS);
+                 Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery("SELECT course_name, COUNT(*) "
+                         + "/ (max(MONTH(subscription_date)) - min(MONTH(subscription_date))) as SALE_PER_MONTH "
+                         + "from PurchaseList "
+                         + "where YEAR(subscription_date) = 2018 "
+                         + "group by course_name;")) {
+                while (resultSet.next()) {
+                    System.out.println(resultSet.getString("course_name") + "\t"
+                            + resultSet.getString("SALE_PER_MONTH"));
+                }
             }
-            resultSet.close();
-            statement.close();
-            connection.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
