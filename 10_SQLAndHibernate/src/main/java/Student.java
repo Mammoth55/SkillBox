@@ -84,4 +84,8 @@ public class Student {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
+
+    public void addCourse(Course course) {
+        subscriptions.add(new Subscription(this, course, new Date()));
+    }
 }

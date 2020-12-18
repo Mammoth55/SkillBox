@@ -1,4 +1,5 @@
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Course {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
@@ -145,5 +146,9 @@ public class Course {
 
     public void setSubscriptions(List<Subscription> subscriptions) {
         this.subscriptions = subscriptions;
+    }
+
+    public void addStudent(Student student) {
+        subscriptions.add(new Subscription(student, this, new Date()));
     }
 }

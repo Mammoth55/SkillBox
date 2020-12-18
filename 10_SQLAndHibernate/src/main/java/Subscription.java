@@ -1,30 +1,32 @@
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "subscriptions")
-public class Subscription implements Serializable {
+@Embeddable
+public class Subscription {
+
+    @EmbeddedId
+    private SubscriptionId id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", insertable = false, updatable = false)
     private Student student;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id", insertable = false, updatable = false)
     private Course course;
 
-    @Id
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "subscription_date")
-    private Purchase purchase;
+    @Column(name = "subscription_date")
+    private Date subscriptionDate;
 
     public Subscription() {
     }
 
-    public Subscription(Student student, Course course, Purchase purchase) {
+    public Subscription(Student student, Course course, Date subscriptionDate) {
         this.student = student;
         this.course = course;
-        this.purchase = purchase;
+        this.subscriptionDate = subscriptionDate;
     }
 
     public Student getStudent() {
@@ -51,11 +53,11 @@ public class Subscription implements Serializable {
         this.course = course;
     }
 
-    public Purchase getPurchase() {
-        return purchase;
+    public Date getSubscriptionDate() {
+        return subscriptionDate;
     }
 
-    public void setPurchase(Purchase purchase) {
-        this.purchase = purchase;
+    public void setSubscriptionDate(Date subscriptionDate) {
+        this.subscriptionDate = subscriptionDate;
     }
 }
