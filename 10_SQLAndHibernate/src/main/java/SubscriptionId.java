@@ -44,4 +44,9 @@ public class SubscriptionId implements Serializable {
     public int hashCode() {
         return Objects.hash(getStudentId(), getCourseId());
     }
+
+    @Override
+    public String toString() {
+        return "SubscriptionId{ studentId = " + studentId + ", courseId = " + courseId + '}';
+    }
 }

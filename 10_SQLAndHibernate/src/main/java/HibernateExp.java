@@ -5,6 +5,8 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class HibernateExp {
@@ -15,11 +17,18 @@ public class HibernateExp {
         Metadata metadata = new MetadataSources(registry).getMetadataBuilder().build();
         try (SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
             Session session = sessionFactory.openSession()) {
+            List<LinkedPurchase> linkedPurchases = new ArrayList<>();
             Transaction transaction = session.beginTransaction();
-            Course course = session.get(Course.class, 2);
-            System.out.println("Курс = " + course.getName());
-            System.out.println("Преподаватель = " + course.getTeacher().getName() + "\nСтуденты :");
-            course.getStudents().stream().map(Student::getName).forEach(System.out::println);
+            List<Purchase> purchases = session.createQuery("From Purchase").getResultList();
+            for (Purchase purchase : purchases) {
+                String hql = "from Student where name = '" + purchase.getStudentName() + "'";
+                Student student = (Student) session.createQuery(hql).getSingleResult();
+                hql = "from Course where name = '" + purchase.getCourseName() + "'";
+                Course course = (Course) session.createQuery(hql).getSingleResult();
+                LinkedPurchase lp = new LinkedPurchase(new SubscriptionId(student.getId(), course.getId()));
+                linkedPurchases.add(lp);
+                session.persist(lp);
+            }
             transaction.commit();
         }
     }
