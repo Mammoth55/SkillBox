@@ -1,3 +1,4 @@
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,16 +18,24 @@ public class HibernateExp {
         Metadata metadata = new MetadataSources(registry).getMetadataBuilder().build();
         try (SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
             Session session = sessionFactory.openSession()) {
-            List<LinkedPurchase> linkedPurchases = new ArrayList<>();
             Transaction transaction = session.beginTransaction();
-            List<Purchase> purchases = session.createQuery("From Purchase").getResultList();
-            for (Purchase purchase : purchases) {
-                String hql = "from Student where name = '" + purchase.getStudentName() + "'";
-                Student student = (Student) session.createQuery(hql).getSingleResult();
-                hql = "from Course where name = '" + purchase.getCourseName() + "'";
-                Course course = (Course) session.createQuery(hql).getSingleResult();
-                LinkedPurchase lp = new LinkedPurchase(new SubscriptionId(student.getId(), course.getId()));
-                linkedPurchases.add(lp);
+            SQLQuery query = session.createSQLQuery("select student_name, course_name from purchaselist");
+            List<Object[]> purchases = query.list();
+            int studentId = 0, courseId = 0;
+            for (Object[] purchase : purchases) {
+                query = session.createSQLQuery("select id, name from students where name = :name");
+                String str = purchase[0].toString();
+                List<Object[]> rows = query.setString("name", str).list();
+                if (rows != null) {
+                    studentId = Integer.parseInt(rows.get(0)[0].toString());
+                }
+                query = session.createSQLQuery("select id, name from courses where name = :name");
+                str = purchase[1].toString();
+                List<Object[]> students = query.setString("name", str).list();
+                if (rows != null) {
+                    courseId = Integer.parseInt(students.get(0)[0].toString());
+                }
+                LinkedPurchase lp = new LinkedPurchase(new SubscriptionId(studentId, courseId));
                 session.persist(lp);
             }
             transaction.commit();
