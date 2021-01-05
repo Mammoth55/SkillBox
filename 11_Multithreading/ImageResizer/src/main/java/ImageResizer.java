@@ -23,10 +23,6 @@ public class ImageResizer implements Runnable {
     @Override
     public void run() {
         try {
-            Path dstPath = Paths.get(dstFolder);
-            if (!Files.exists(dstPath)) {
-                Files.createDirectories(dstPath);
-            }
             for (File file : files) {
                 BufferedImage image = ImageIO.read(file);
                 if (image == null) {
@@ -34,14 +30,16 @@ public class ImageResizer implements Runnable {
                 }
                 int newHeight = (int) Math.round(image.getHeight() / (image.getWidth() / (double) newWidth));
                 BufferedImage newImage = Scalr.resize(image, newWidth, newHeight, null);
-
-                File newFile = new File(dstFolder + "/" + file.getName());
-                ImageIO.write(newImage, "jpg", newFile);
+                String fileName = file.getName();
+                File newFile = new File(dstFolder + "/" + fileName);
+                String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+                ImageIO.write(newImage, fileExtension, newFile);
             }
         }
         catch (Exception ex) {
             ex.printStackTrace();
         }
-        System.out.println("Done !\nDuration: " + (System.currentTimeMillis() - startTime) + " ms");
+        System.out.println(Thread.currentThread().getName() + " done !\nDuration: "
+                + (System.currentTimeMillis() - startTime) + " ms");
     }
 }
