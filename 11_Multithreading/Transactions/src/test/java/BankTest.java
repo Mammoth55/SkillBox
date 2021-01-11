@@ -1,17 +1,21 @@
 import org.junit.Before;
 import org.junit.Test;
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 
 public class BankTest {
 
     private Bank bank;
-    private final long TOTALMONEY = 210000000;
+    private final long TOTAL_MONEY = 210000000;
 
     @Before
     public void whenBegin() {
         bank = new Bank();
-        Hashtable<String, Account> accountsTest = new Hashtable<>();
+        Map<String, Account> accountsTest = new ConcurrentHashMap<>();
         accountsTest.put("0000000000", new Account(true, "0000000000", 10000000));
         accountsTest.put("0000000001", new Account(true, "0000000001", 10000000));
         accountsTest.put("0000000002", new Account(true, "0000000002", 10000000));
@@ -37,54 +41,51 @@ public class BankTest {
     }
 
     @Test
-    public void whenTransfer() {
-        Thread thread;
-        for (int i = 0; i < 20; i++) {
+    public void whenTransfer() throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
+        for (int i = 0; i < 15; i++) {
             int finalI = i;
-            thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    long amount = finalI * 1000 + 32000;
-                    for (String keyFrom : bank.getAccounts().keySet()) {
-                        for (String keyTo : bank.getAccounts().keySet()) {
-                            if (keyFrom.equals(keyTo)) {
-                                continue;
-                            }
-                            synchronized (bank) {
-                                bank.transfer(keyFrom, keyTo, amount);
-                            }
+            executorService.execute(() -> {
+                long amount = finalI * 1000 + 32000;
+                for (String keyFrom : bank.getAccounts().keySet()) {
+                    for (String keyTo : bank.getAccounts().keySet()) {
+                        if (keyFrom.equals(keyTo)) {
+                            continue;
+                        }
+                        synchronized (bank) {
+                            bank.transfer(keyFrom, keyTo, amount);
                         }
                     }
-                    long actual = 0;
-                    synchronized (bank) {
-                        for (String key : bank.getAccounts().keySet()) {
-                            actual += bank.getBalance(key);
-                        }
-                    }
-                    assertEquals(TOTALMONEY, actual);
                 }
             });
-            thread.start();
         }
+        executorService.shutdown();
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
+        long actual = 0;
+        for (String key : bank.getAccounts().keySet()) {
+            actual += bank.getBalance(key);
+        }
+        assertEquals(TOTAL_MONEY, actual);
     }
 
     @Test
-    public void whenGetBalance() {
-        Thread thread;
+    public void whenGetBalance() throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
         for (int i = 0; i < 100; i++) {
-            thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    long actual = 0;
-                    synchronized (bank) {
-                        for (String key : bank.getAccounts().keySet()) {
-                            actual += bank.getBalance(key);
-                        }
+            executorService.execute(() -> {
+                synchronized (bank) {
+                    for (String key : bank.getAccounts().keySet()) {
+                        bank.getBalance(key);
                     }
-                    assertEquals(TOTALMONEY, actual);
                 }
             });
-            thread.start();
         }
+        executorService.shutdown();
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
+        long actual = 0;
+        for (String key : bank.getAccounts().keySet()) {
+            actual += bank.getBalance(key);
+        }
+        assertEquals(TOTAL_MONEY, actual);
     }
 }

@@ -1,17 +1,18 @@
-import java.util.Hashtable;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Bank {
 
-    private Hashtable<String, Account> accounts = new Hashtable<>();
+    private Map<String, Account> accounts = new ConcurrentHashMap<>();
     private final Random random = new Random();
-    private static final long MAXSAFETRANSFER = 50000;
+    private static final long MAX_SAFE_TRANSFER = 50000;
 
-    public Hashtable<String, Account> getAccounts() {
+    public Map<String, Account> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(Hashtable<String, Account> accounts) {
+    public void setAccounts(Map<String, Account> accounts) {
         this.accounts = accounts;
     }
 
@@ -28,21 +29,19 @@ public class Bank {
      * метод isFraud. Если возвращается true, то делается блокировка
      * счетов (как – на ваше усмотрение)
      */
-    public void transfer(String fromAccountNum, String toAccountNum, long amount) {
+    public synchronized void transfer(String fromAccountNum, String toAccountNum, long amount) {
         Account accountFrom = accounts.get(fromAccountNum);
         accountFrom.setMoney(accountFrom.getMoney() - amount);
         Account accountTo = accounts.get(toAccountNum);
         accountTo.setMoney(accountTo.getMoney() + amount);
         try {
-            if (amount > MAXSAFETRANSFER && isFraud(fromAccountNum, toAccountNum, amount)) {
+            if (amount > MAX_SAFE_TRANSFER && isFraud(fromAccountNum, toAccountNum, amount)) {
                 accountFrom.setIsActive(false);
                 accountTo.setIsActive(false);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        accounts.put(fromAccountNum, accountFrom);
-        accounts.put(toAccountNum, accountTo);
     }
 
     /**
