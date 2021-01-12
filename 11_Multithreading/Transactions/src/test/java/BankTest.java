@@ -1,10 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import static org.junit.Assert.assertEquals;
 
 public class BankTest {
@@ -41,47 +40,27 @@ public class BankTest {
     }
 
     @Test
-    public void whenTransfer() throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(20);
-        for (int i = 0; i < 15; i++) {
+    public void whenTransferAndGetBalance() throws InterruptedException, ExecutionException {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        List<Future> tasks = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
             int finalI = i;
-            executorService.execute(() -> {
-                long amount = finalI * 1000 + 32000;
+            tasks.add(executorService.submit(() -> {
+                long amount = finalI * 1000 + 31000;
                 for (String keyFrom : bank.getAccounts().keySet()) {
                     for (String keyTo : bank.getAccounts().keySet()) {
                         if (keyFrom.equals(keyTo)) {
                             continue;
                         }
-                        synchronized (bank) {
-                            bank.transfer(keyFrom, keyTo, amount);
-                        }
+                        bank.transfer(keyFrom, keyTo, amount);
                     }
                 }
-            });
+            }));
         }
         executorService.shutdown();
-        executorService.awaitTermination(10, TimeUnit.SECONDS);
-        long actual = 0;
-        for (String key : bank.getAccounts().keySet()) {
-            actual += bank.getBalance(key);
+        for (Future task : tasks) {
+            task.get();
         }
-        assertEquals(TOTAL_MONEY, actual);
-    }
-
-    @Test
-    public void whenGetBalance() throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(20);
-        for (int i = 0; i < 100; i++) {
-            executorService.execute(() -> {
-                synchronized (bank) {
-                    for (String key : bank.getAccounts().keySet()) {
-                        bank.getBalance(key);
-                    }
-                }
-            });
-        }
-        executorService.shutdown();
-        executorService.awaitTermination(10, TimeUnit.SECONDS);
         long actual = 0;
         for (String key : bank.getAccounts().keySet()) {
             actual += bank.getBalance(key);
