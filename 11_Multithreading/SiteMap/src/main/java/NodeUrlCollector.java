@@ -1,22 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.RecursiveAction;
 
-public class NodeUrlCollector extends RecursiveTask<String> {
+public class NodeUrlCollector extends RecursiveAction {
 
-    private final Node node;
+    private volatile Node node;
 
     public NodeUrlCollector(Node node) {
         this.node = node;
     }
 
     @Override
-    protected String compute() {
-        String exit = "";
+    protected void compute() {
         try {
-            Boolean back = SiteMap.putUniqueURL(node.getValue());
-            if (back != null) {
-                return null;
+            boolean isntDuplicate = SiteMap.putUniqueURL(node.getValue());
+            if (! isntDuplicate) {
+                return;
             }
             List<NodeUrlCollector> taskList = new ArrayList<>();
             for (Node child : node.getChildren()) {
@@ -25,11 +24,10 @@ public class NodeUrlCollector extends RecursiveTask<String> {
                 taskList.add(task);
             }
             for (NodeUrlCollector task : taskList) {
-                exit = task.join();
+                task.join();
             }
         } catch (Exception ex) {
             System.out.println("EXEPTION : " + ex.getMessage());
         }
-        return exit;
     }
 }

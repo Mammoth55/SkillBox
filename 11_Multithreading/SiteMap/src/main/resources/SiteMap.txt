@@ -68,8 +68,6 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/code/analitika-dannykh-na-python/special/
 			live.skillbox.ru/webinars/code/analiz-dannykh-v-data-science-podvodim-itogi021220/
 				live.skillbox.ru/webinars/code/analiz-dannykh-v-data-science-podvodim-itogi021220/special/
-			live.skillbox.ru/webinars/code/android-razrabotka-praktika190121/
-				live.skillbox.ru/webinars/code/android-razrabotka-praktika190121/special/
 			live.skillbox.ru/webinars/code/chto-nuzhno-znat-o-python-chtoby-nachat-zarabatyvat/
 				live.skillbox.ru/webinars/code/chto-nuzhno-znat-o-python-chtoby-nachat-zarabatyvat/special/
 			live.skillbox.ru/webinars/code/delaem-ios-prilozhenie-klient-servernym260121/
@@ -84,10 +82,6 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/code/frontend-i-backend-programmirovanie-php-i-javascript-2/special/
 			live.skillbox.ru/webinars/code/frontend-razrabotchik-praktika-dlya-bystrogo-starta/
 				live.skillbox.ru/webinars/code/frontend-razrabotchik-praktika-dlya-bystrogo-starta/special/
-			live.skillbox.ru/webinars/code/gotovimsya-k-sozdaniyu-servera-na-c180121/
-				live.skillbox.ru/webinars/code/gotovimsya-k-sozdaniyu-servera-na-c180121/special/
-			live.skillbox.ru/webinars/code/gotovimsya-nachat-kareru200121/
-				live.skillbox.ru/webinars/code/gotovimsya-nachat-kareru200121/special/
 			live.skillbox.ru/webinars/code/intensiv-1s-podvodim-itogi/
 				live.skillbox.ru/webinars/code/intensiv-1s-podvodim-itogi/special/
 			live.skillbox.ru/webinars/code/intensiv-po-veb-razrabotke-podvedenie-itogov-1/
@@ -128,6 +122,8 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/code/pishem-pervoe-prilozhenie-na-ios250121/special/
 			live.skillbox.ru/webinars/code/pogruzhaemsya-v-veb-razrabotku/
 				live.skillbox.ru/webinars/code/pogruzhaemsya-v-veb-razrabotku/special/
+			live.skillbox.ru/webinars/code/prilozhenie-na-ios-podvodim-itogi270121/
+				live.skillbox.ru/webinars/code/prilozhenie-na-ios-podvodim-itogi270121/special/
 			live.skillbox.ru/webinars/code/professiya-devops-inzhener-podvodim-itogi230121/
 				live.skillbox.ru/webinars/code/professiya-devops-inzhener-podvodim-itogi230121/special/
 			live.skillbox.ru/webinars/code/python-intensiv-podvedenie-itogov-3/
@@ -152,20 +148,16 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/code/sozdaem-osnovu-messendzhera-2/special/
 			live.skillbox.ru/webinars/code/sozdaem-veb-prilozhenie-na-django/
 				live.skillbox.ru/webinars/code/sozdaem-veb-prilozhenie-na-django/special/
-			live.skillbox.ru/webinars/code/sozdayom-vysokoproizvoditelnyi-server-na-c190121/
-				live.skillbox.ru/webinars/code/sozdayom-vysokoproizvoditelnyi-server-na-c190121/special/
 			live.skillbox.ru/webinars/code/trendy-frontend-razrabotki-na-2020-god/
 				live.skillbox.ru/webinars/code/trendy-frontend-razrabotki-na-2020-god/special/
 			live.skillbox.ru/webinars/code/uchim-bota-na-python-ponimat-tekst220121/
 				live.skillbox.ru/webinars/code/uchim-bota-na-python-ponimat-tekst220121/special/
-			live.skillbox.ru/webinars/code/uznayom-o-professii-bolshe190121/
-				live.skillbox.ru/webinars/code/uznayom-o-professii-bolshe190121/special/
 			live.skillbox.ru/webinars/code/veb-animatsiya-sredstvami-javascript-i-css/
 				live.skillbox.ru/webinars/code/veb-animatsiya-sredstvami-javascript-i-css/special/
-			live.skillbox.ru/webinars/code/vvedenie-v-android-razrabotku180121/
-				live.skillbox.ru/webinars/code/vvedenie-v-android-razrabotku180121/special/
 			live.skillbox.ru/webinars/code/vvedenie-v-data-science151020/
 				live.skillbox.ru/webinars/code/vvedenie-v-data-science151020/special/
+			live.skillbox.ru/webinars/code/vvedenie-v-data-science270121/
+				live.skillbox.ru/webinars/code/vvedenie-v-data-science270121/special/
 			live.skillbox.ru/webinars/code/vzlomy-i-brute-force-ataki-3/
 				live.skillbox.ru/webinars/code/vzlomy-i-brute-force-ataki-3/special/
 			live.skillbox.ru/webinars/code/zakodiruysya-vybor-yazyka-programmirovaniya-13/
@@ -252,14 +244,14 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/design/planirovka-kvartiry-s-nulya-izuchaem-osnovy-dizaina-intererov250121/special/
 			live.skillbox.ru/webinars/design/planirovka-kvartiry-s-nulya-napolnyaem-interer260121/
 				live.skillbox.ru/webinars/design/planirovka-kvartiry-s-nulya-napolnyaem-interer260121/special/
+			live.skillbox.ru/webinars/design/planirovka-kvartiry-s-nulya-podvodim-itogi270121/
+				live.skillbox.ru/webinars/design/planirovka-kvartiry-s-nulya-podvodim-itogi270121/special/
 			live.skillbox.ru/webinars/design/podvodim-itogi-intensiva-dvizhenie-vverkh230121/
 				live.skillbox.ru/webinars/design/podvodim-itogi-intensiva-dvizhenie-vverkh230121/special/
 			live.skillbox.ru/webinars/design/poster-v-photoshop-za-chas-1/
 				live.skillbox.ru/webinars/design/poster-v-photoshop-za-chas-1/special/
-			live.skillbox.ru/webinars/design/probuem-sebya-v-dizaine-intererov190121/
-				live.skillbox.ru/webinars/design/probuem-sebya-v-dizaine-intererov190121/special/
-			live.skillbox.ru/webinars/design/probuem-sebya-v-landshaftnom-dizaine200121/
-				live.skillbox.ru/webinars/design/probuem-sebya-v-landshaftnom-dizaine200121/special/
+			live.skillbox.ru/webinars/design/probuem-vse-vidy-dizaina-na-praktike270121/
+				live.skillbox.ru/webinars/design/probuem-vse-vidy-dizaina-na-praktike270121/special/
 			live.skillbox.ru/webinars/design/pyat-bazovykh-tekhnik-akvarelnoy-zhivopisi/
 				live.skillbox.ru/webinars/design/pyat-bazovykh-tekhnik-akvarelnoy-zhivopisi/special/
 				live.skillbox.ru/webinars/design/rabota-v-komande-glazami-dizaynera/special/
@@ -273,6 +265,8 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/design/trendy-i-stili-v-aydentike/special/
 			live.skillbox.ru/webinars/design/urok-po-akvarelnoy-zhivopisi/
 				live.skillbox.ru/webinars/design/urok-po-akvarelnoy-zhivopisi/special/
+			live.skillbox.ru/webinars/design/vvedenie-v-2d-vash-pervyi-personazh-za-chas270121/
+				live.skillbox.ru/webinars/design/vvedenie-v-2d-vash-pervyi-personazh-za-chas270121/special/
 			live.skillbox.ru/webinars/games/2d-khudozhnik-izuchaem-cvetovoi-krug-sootnosheniya-cvetov-i-teplokholodnost011220/
 				live.skillbox.ru/webinars/games/2d-khudozhnik-izuchaem-cvetovoi-krug-sootnosheniya-cvetov-i-teplokholodnost011220/special/
 			live.skillbox.ru/webinars/games/2d-khudozhnik-izuchaem-cvetovoi-krug-sootnosheniya-cvetov-i-teplokholodnost031120/
@@ -293,18 +287,16 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/games/animiruem-drakona-v-maya-podvodim-itogi181120/special/
 			live.skillbox.ru/webinars/games/animiruem-drakona-v-maya-rabotaem-nad-dvizheniyami-personazha171120/
 				live.skillbox.ru/webinars/games/animiruem-drakona-v-maya-rabotaem-nad-dvizheniyami-personazha171120/special/
+			live.skillbox.ru/webinars/games/cg-khudozhnik-ocenivaem-raboty-i-ishem-zakazchikov250221/
 			live.skillbox.ru/webinars/games/cg-khudozhnik-ocenivaem-raboty-i-ishem-zakazchikov251220/
 				live.skillbox.ru/webinars/games/cg-khudozhnik-ocenivaem-raboty-i-ishem-zakazchikov251220/special/
 			live.skillbox.ru/webinars/games/cg-khudozhnik-ocenivaem-raboty-i-ishem-zakazchikov260121/
 				live.skillbox.ru/webinars/games/cg-khudozhnik-ocenivaem-raboty-i-ishem-zakazchikov260121/special/
+			live.skillbox.ru/webinars/games/cg-khudozhnik-podvodim-itogi260221/
 			live.skillbox.ru/webinars/games/cg-khudozhnik-podvodim-itogi261220/
 				live.skillbox.ru/webinars/games/cg-khudozhnik-podvodim-itogi261220/special/
 			live.skillbox.ru/webinars/games/cg-khudozhnik-podvodim-itogi270121/
 				live.skillbox.ru/webinars/games/cg-khudozhnik-podvodim-itogi270121/special/
-			live.skillbox.ru/webinars/games/cvetovoi-krug-sootnosheniya-i-teplokholodnost/
-				live.skillbox.ru/webinars/games/cvetovoi-krug-sootnosheniya-i-teplokholodnost/special/
-			live.skillbox.ru/webinars/games/cvetovoi-krug-sootnosheniya-i-teplokholodnost010920/
-				live.skillbox.ru/webinars/games/cvetovoi-krug-sootnosheniya-i-teplokholodnost010920/special/
 			live.skillbox.ru/webinars/games/intensiv-po-unreal-engine-4-podvodim-itogi/
 				live.skillbox.ru/webinars/games/intensiv-po-unreal-engine-4-podvodim-itogi/special/
 			live.skillbox.ru/webinars/games/nachinaem-pisat-igru-na-unreal-engine-4/
@@ -354,10 +346,13 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/management/etapy-razvitiya-veb-studii-2/special/
 			live.skillbox.ru/webinars/management/etapy-razvitiya-veb-studii/
 				live.skillbox.ru/webinars/management/etapy-razvitiya-veb-studii/special/
+			live.skillbox.ru/webinars/management/karera-finansista-konsalting-vs-industriya270121/
 			live.skillbox.ru/webinars/management/kto-takoi-project-manager-i-komu-podoidyot-eta-specialnost210121/
 				live.skillbox.ru/webinars/management/kto-takoi-project-manager-i-komu-podoidyot-eta-specialnost210121/special/
 			live.skillbox.ru/webinars/management/obzor-softa-dlya-raschyota-valovoi-pribyli-kak-obosnovat-premiyu260121/
 				live.skillbox.ru/webinars/management/obzor-softa-dlya-raschyota-valovoi-pribyli-kak-obosnovat-premiyu260121/special/
+			live.skillbox.ru/webinars/management/podvedenie-itogov270121/
+				live.skillbox.ru/webinars/management/podvedenie-itogov270121/special/
 			live.skillbox.ru/webinars/management/pribylnost-i-ubytochnost-kompanii250121/
 				live.skillbox.ru/webinars/management/pribylnost-i-ubytochnost-kompanii250121/special/
 			live.skillbox.ru/webinars/management/professiya-project-manager-podvodim-itogi230121/
@@ -416,8 +411,8 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/marketing/prodayushchie-posty-v-instagram-razbor-vashikh-rabot-v-pryamom-efire-3/special/
 			live.skillbox.ru/webinars/marketing/prodvizhenie-v-instagram-1/
 				live.skillbox.ru/webinars/marketing/prodvizhenie-v-instagram-1/special/
-			live.skillbox.ru/webinars/marketing/professiya-kopiraiter-podvodim-itogi200121/
-				live.skillbox.ru/webinars/marketing/professiya-kopiraiter-podvodim-itogi200121/special/
+			live.skillbox.ru/webinars/marketing/psikhologiya-povedeniya-klienta-i-kak-na-nee-vliyat270121/
+				live.skillbox.ru/webinars/marketing/psikhologiya-povedeniya-klienta-i-kak-na-nee-vliyat270121/special/
 			live.skillbox.ru/webinars/marketing/sekrety-khaypa-v-smm/
 				live.skillbox.ru/webinars/marketing/sekrety-khaypa-v-smm/special/
 			live.skillbox.ru/webinars/marketing/smm-2020/
@@ -428,38 +423,10 @@ live.skillbox.ru/
 				live.skillbox.ru/webinars/marketing/uchim-smm-prodvizheniyu-podgotovka/special/
 			live.skillbox.ru/webinars/marketing/uchim-smm-prodvizheniyu-razbory/
 				live.skillbox.ru/webinars/marketing/uchim-smm-prodvizheniyu-razbory/special/
-			live.skillbox.ru/webinars/marketing/uchimsya-pisat-teksty-pod-lyubye-zadachi190121/
-				live.skillbox.ru/webinars/marketing/uchimsya-pisat-teksty-pod-lyubye-zadachi190121/special/
 			live.skillbox.ru/webinars/marketing/uvelichenie-prodazh-cherez-blogerov/
 				live.skillbox.ru/webinars/marketing/uvelichenie-prodazh-cherez-blogerov/special/
 			live.skillbox.ru/webinars/marketing/vozmozhnosti-instagram-dlya-vashego-biznesa-1/
 				live.skillbox.ru/webinars/marketing/vozmozhnosti-instagram-dlya-vashego-biznesa-1/special/
-			live.skillbox.ru/webinars/marketing/znakomimsya-s-professiei-kopiraitera180121/
-				live.skillbox.ru/webinars/marketing/znakomimsya-s-professiei-kopiraitera180121/special/
-			live.skillbox.ru/webinars/other/1-ognennyy-keys-v-vashem-portfolio/
-				live.skillbox.ru/webinars/other/1-ognennyy-keys-v-vashem-portfolio/special/
-			live.skillbox.ru/webinars/other/10-poleznykh-instrumentov-dlya-dizaynera-intererov/
-				live.skillbox.ru/webinars/other/10-poleznykh-instrumentov-dlya-dizaynera-intererov/special/
-			live.skillbox.ru/webinars/other/1s-s-chego-nachnem/
-				live.skillbox.ru/webinars/other/1s-s-chego-nachnem/special/
-			live.skillbox.ru/webinars/other/68-dney-spustya-den-1/
-			live.skillbox.ru/webinars/other/68-dney-spustya-den-2/
-			live.skillbox.ru/webinars/other/angliiskii-yazyk-v-sfere-digital/
-			live.skillbox.ru/webinars/other/art-vizhn-klassikart-vision-classic/
-			live.skillbox.ru/webinars/other/art-vizhn-modernart-vision-modern/
-			live.skillbox.ru/webinars/other/art-vizhn-vidzheingart-vision-vjing/
-			live.skillbox.ru/webinars/other/backend-programmirovanie-na-servere/
-				live.skillbox.ru/webinars/other/backend-programmirovanie-na-servere/special/
-			live.skillbox.ru/webinars/other/bim-vzaimodeystvie-pri-pomoshchi-ifc-i-bcf/
-				live.skillbox.ru/webinars/other/bim-vzaimodeystvie-pri-pomoshchi-ifc-i-bcf/special/
-			live.skillbox.ru/webinars/other/brifing-klienta/
-				live.skillbox.ru/webinars/other/brifing-klienta/special/
-			live.skillbox.ru/webinars/other/bystraya-podgotovka-okruzheniy-dlya-khakatonov-i-geymdzhemov/
-			live.skillbox.ru/webinars/other/bystryy-start/
-				live.skillbox.ru/webinars/other/bystryy-start/special/
-			live.skillbox.ru/webinars/other/chto-ostalos-ot-cheloveka-v-sovremennom-obrazovanii/
-			live.skillbox.ru/webinars/other/customer-journey-map-mify-i-realnost/
-			live.skillbox.ru/webinars/other/neimenuemyi-subekt-singulyarnosti200121/
 			live.skillbox.ru/webinars/other/sintaksis-v-interfeyse-i-kak-ego-pravilno-narushat/
 		live.skillbox.ru/webinarsale/p/
 							live.skillbox.ru/webinarsale/p/https://live.skillbox.ru/webinarsale/p/
@@ -749,6 +716,7 @@ skillbox.ru/
 			skillbox.ru/media/code/frontend_i_backend/
 			skillbox.ru/media/code/galopom_po_python_yazykovoy_minimum_neobkhodimyy_nachinayushchemu_data_sayentistu/
 			skillbox.ru/media/code/gayd_dlya_nachinayushchikh_kak_napisat_javascript/
+			skillbox.ru/media/code/generatory_python_chto_eto_takoe_i_zachem_oni_nuzhny/
 			skillbox.ru/media/code/gotovimsya_k_sobesedovaniyu_chto_takoe_dekoratory_v_python/
 			skillbox.ru/media/code/half_life_i_vr_chto_zhdyet_kompyuternye_igry/
 			skillbox.ru/media/code/igrovye_sistemy_ot_dark_messiah_do_breath_of_the_wild/
@@ -794,6 +762,7 @@ skillbox.ru/
 			skillbox.ru/media/code/kak_zastavit_sayt_gruzitsya_bystree/
 			skillbox.ru/media/code/kamera_v_igrakh_kak_rasskazat_istoriyu_i_pokazat_mir/
 			skillbox.ru/media/code/kto_takoy_mobilnyy_razrabotchik_i_kak_im_stat/
+			skillbox.ru/media/code/matematika_dlya_dzhunov_chto_nuzhno_povtorit_pered_sobesedovaniem_po_data_science/
 			skillbox.ru/media/code/mikhail_ovchinnikov_badoo_pervyy_sayt_ya_prodal_za_tysyachu_rubley/
 			skillbox.ru/media/code/mitrofanov_story/
 			skillbox.ru/media/code/motivatsiya_v_igrakh_kak_sozdat_uvlekatelnuyu_igru/
@@ -921,6 +890,7 @@ skillbox.ru/
 			skillbox.ru/media/design/chto_takoe_tekstury_i_kak_oni_rabotayut_v_3d_grafike/
 			skillbox.ru/media/design/chto_takoe_tipografika/
 			skillbox.ru/media/design/chto_takoe_tsvetovoy_krug_ittena/
+			skillbox.ru/media/design/chto_takoe_voyny_brendov_i_chem_oni_interesny/
 			skillbox.ru/media/design/chto_umeet_adobe_photoshop_podrobno_o_vozmozhnostyakh_programmy/
 			skillbox.ru/media/design/chto_vybrat_dizayneru_fiks_ili_chas/
 			skillbox.ru/media/design/conrad_allan_interview/

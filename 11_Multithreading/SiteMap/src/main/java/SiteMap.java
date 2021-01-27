@@ -16,7 +16,7 @@ public class SiteMap implements Node {
     private static final String MY_SITE2 =
             "." + HTML_PATH.substring(HTML_PATH.indexOf("//") + 2, HTML_PATH.indexOf(".")); // use ".skillbox";
     private static final String FILE_PATH = "src/main/resources/SiteMap.txt";
-    private static final Map<String, Boolean> uniqueURL = new ConcurrentHashMap<>();
+    private static final Set<String> uniqueURL = ConcurrentHashMap.newKeySet();
     private static int count;
     private final String currentURL;
 
@@ -36,13 +36,13 @@ public class SiteMap implements Node {
         }
     }
 
-    public static Boolean putUniqueURL(String url) {
+    public static boolean putUniqueURL(String url) {
         String urlWithoutHTTP = url.substring(url.indexOf(":") + 3);
-        Boolean back = uniqueURL.putIfAbsent(urlWithoutHTTP, true);
-        if (back == null) {
+        boolean isntDuplicate = uniqueURL.add(urlWithoutHTTP);
+        if (isntDuplicate) {
             System.out.print(++count + "\r");
         }
-        return back;
+        return isntDuplicate;
     }
 
     private boolean isRealURL(String url) {
@@ -52,9 +52,9 @@ public class SiteMap implements Node {
     }
 
     public static void fileSave(String filePath) {
-        Set<String> urlSet = new TreeSet<>(uniqueURL.keySet());
+        Set<String> sortedUrlSet = new TreeSet<>(uniqueURL);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (String url : urlSet) {
+            for (String url : sortedUrlSet) {
                 long tabCount = url.chars().filter(ch -> ch == '/').count() - 1;
                 for (int i = 0; i < tabCount; i++) {
                     writer.write('\t');
