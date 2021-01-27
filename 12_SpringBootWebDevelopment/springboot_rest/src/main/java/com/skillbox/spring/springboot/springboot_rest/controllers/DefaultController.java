@@ -1,4 +1,4 @@
-package com.skillbox.spring.springboot.springboot_rest;
+package com.skillbox.spring.springboot.springboot_rest.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
