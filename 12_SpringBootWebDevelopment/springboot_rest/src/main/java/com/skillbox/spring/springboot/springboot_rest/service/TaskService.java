@@ -8,13 +8,13 @@ public interface TaskService {
 
     List<Task> getAllTasks();
 
-    ResponseEntity<Task> saveTask(Task task);
+    Task saveTask(Task task);
 
-    ResponseEntity<Task> updateTask(Task task, int id);
+    Task updateTask(Task task, int id);
 
-    ResponseEntity<Task> getTask(int id);
+    Task getTask(int id);
 
-    ResponseEntity<Task> deleteTask(int id);
+    Task deleteTask(int id);
 
     void deleteAllTasks();
 }

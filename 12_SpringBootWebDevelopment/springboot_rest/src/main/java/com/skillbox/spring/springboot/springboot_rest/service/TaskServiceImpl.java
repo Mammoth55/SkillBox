@@ -1,8 +1,8 @@
 package com.skillbox.spring.springboot.springboot_rest.service;
 
+import com.skillbox.spring.springboot.springboot_rest.exeption_handling.EntityNotFoundException;
 import com.skillbox.spring.springboot.springboot_rest.model.Task;
 import com.skillbox.spring.springboot.springboot_rest.repository.TaskRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
@@ -22,34 +22,37 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public ResponseEntity<Task> getTask(int id) {
+    public Task getTask(int id) {
         Optional<Task> task = taskRepository.findById(id);
-        return task.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.status(404).body(null));
+        if (! task.isPresent()) {
+            throw new EntityNotFoundException("There is no Task with ID = " + id + " in Database.");
+        }
+        return taskRepository.getOne(id);
     }
 
     @Override
-    public ResponseEntity<Task> saveTask(Task task) {
-        return ResponseEntity.status(201).body(taskRepository.save(task));
+    public Task saveTask(Task task) {
+        return taskRepository.save(task);
     }
 
     @Override
-    public ResponseEntity<Task> updateTask(Task task, int id) {
+    public Task updateTask(Task task, int id) {
         Optional<Task> tsk = taskRepository.findById(id);
         if (! tsk.isPresent()) {
-            return ResponseEntity.status(404).body(null);
+            throw new EntityNotFoundException("There is no Task with ID = " + id + " in Database.");
         }
         task.setId(id);
-        return ResponseEntity.ok().body(taskRepository.save(task));
+        return taskRepository.save(task);
     }
 
     @Override
-    public ResponseEntity<Task> deleteTask(int id) {
-        Optional<Task> tsk = taskRepository.findById(id);
-        if (! tsk.isPresent()) {
-            return ResponseEntity.status(404).body(null);
+    public Task deleteTask(int id) {
+        Optional<Task> task = taskRepository.findById(id);
+        if (! task.isPresent()) {
+            throw new EntityNotFoundException("There is no Task with ID = " + id + " in Database.");
         }
         taskRepository.deleteById(id);
-        return ResponseEntity.ok().body(tsk.get());
+        return task.get();
     }
 
     @Override
