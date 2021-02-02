@@ -5,7 +5,6 @@ import com.skillbox.spring.springboot.springboot_rest.model.Task;
 import com.skillbox.spring.springboot.springboot_rest.repository.TaskRepository;
 import org.springframework.stereotype.Component;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class TaskServiceImpl implements TaskService {
@@ -23,11 +22,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task getTask(int id) {
-        Optional<Task> task = taskRepository.findById(id);
-        if (! task.isPresent()) {
-            throw new EntityNotFoundException("There is no Task with ID = " + id + " in Database.");
-        }
-        return taskRepository.getOne(id);
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("There is no Task with ID = " + id + " in Database."));
     }
 
     @Override
@@ -37,22 +33,18 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task updateTask(Task task, int id) {
-        Optional<Task> tsk = taskRepository.findById(id);
-        if (! tsk.isPresent()) {
-            throw new EntityNotFoundException("There is no Task with ID = " + id + " in Database.");
-        }
+        taskRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("There is no Task with ID = " + id + " in Database."));
         task.setId(id);
         return taskRepository.save(task);
     }
 
     @Override
     public Task deleteTask(int id) {
-        Optional<Task> task = taskRepository.findById(id);
-        if (! task.isPresent()) {
-            throw new EntityNotFoundException("There is no Task with ID = " + id + " in Database.");
-        }
+        Task tsk = taskRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("There is no Task with ID = " + id + " in Database."));
         taskRepository.deleteById(id);
-        return task.get();
+        return tsk;
     }
 
     @Override
