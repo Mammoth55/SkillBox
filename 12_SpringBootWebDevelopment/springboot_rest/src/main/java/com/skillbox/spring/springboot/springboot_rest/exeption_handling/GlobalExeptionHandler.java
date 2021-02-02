@@ -9,16 +9,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExeptionHandler {
 
     @ExceptionHandler
-    public final ResponseEntity<ApiError> handleException(EntityNotFoundException ex) {
-        ApiError error = new ApiError();
-        error.setInfo(ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
     public final ResponseEntity<ApiError> handleException(Exception ex) {
         ApiError error = new ApiError();
         error.setInfo(ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error,
+                ex instanceof EntityNotFoundException ? HttpStatus.NOT_FOUND : HttpStatus.BAD_REQUEST);
     }
 }
