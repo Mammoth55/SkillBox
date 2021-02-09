@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Show Form Data</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>R e s u l t :</h1>
+    <br><br>
+    <!--/*@thymesVar id="task" type="java"*/-->
+    <p th:text="'id: ' + ${task.id}" /></p>
+    <p th:text="'description: ' + ${task.description}" /></p>
+    <a href="/greeting">Submit another Task</a>
+</body>
+</html>

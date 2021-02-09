@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+</head>
+<body>
+    <h1>To Do List (<!--/*@thymesVar id="tasksCount" type="java"*/-->
+        <span th:text="${tasksCount}">0</span> )</h1>
+    <br><br>
+    <a href="/tasks/listAllTasks">List All Tasks</a>
+    <br><br>
+    <a href="/tasks/getTask">Get Task by ID</a>
+    <br><br>
+    <a href="/tasks/createTask">Create new Task</a>
+    <br><br>
+    <a href="/tasks/updateTask">Update Task by ID</a>
+    <br><br>
+    <a href="/tasks/deleteTask">Delete Task by ID</a>
+    <br><br>
+    <a href="/tasks/deleteAllTasks">Delete All Tasks</a>
+</body>
+</html>
