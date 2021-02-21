@@ -19,18 +19,7 @@ public class DefaultController {
     @GetMapping("/")
     public String index(Model model) {
         List<Task> allTasks = taskService.getAllTasks();
-        model.addAttribute("allTasks", allTasks);
         model.addAttribute("tasksCount", allTasks.size());
         return "index";
-    }
-
-    @GetMapping("/hello")
-    public String helloPage(Model model) {
-        return "hello";
-    }
-
-    @GetMapping("/goodbye")
-    public String goodbyePage(Model model) {
-        return "goodbye";
     }
 }

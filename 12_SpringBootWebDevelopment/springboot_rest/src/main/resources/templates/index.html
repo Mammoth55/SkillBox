@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>To Do List</title>
+    <title>Main Menu</title>
     <style>
         html, body {
             width: 100%;
@@ -15,14 +15,19 @@
     </style>
 </head>
 <body>
-    <h1>To Do List ( <span th:text="${tasksCount}" /> )</h1>
-    <div id="task-list">
-        <div th:each="task : ${allTasks}">
-            <a href="/" class="task-link"
-               th:attr="data-id=${task.id}"
-               th:text="${task.description}"></a>
-            <br><br>
-        </div>
-    </div>
+    <h1>To Do List ( <span th:text="${tasksCount}"></span> records total )</h1>
+    <br>
+    <form method="GET" action="/tasks">
+        <input type="submit" value="List All Tasks" />
+        <br><br><br>
+    </form>
+    <form method="GET" action="/tasks/new">
+        <input type="submit" value="Create new Task" />
+        <br><br><br>
+    </form>
+    <form th:method="DELETE" th:action="@{/tasks}">
+        <input type="submit" value="Delete All Tasks" />
+        <br><br><br>
+    </form>
 </body>
 </html>

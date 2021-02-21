@@ -3,11 +3,14 @@ package com.skillbox.spring.springboot.springboot_rest.controllers;
 import com.skillbox.spring.springboot.springboot_rest.model.Task;
 import com.skillbox.spring.springboot.springboot_rest.service.TaskService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/tasks")
 @Component
 public class TaskController {
@@ -19,32 +22,58 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> listAllTasks() {
-        return taskService.getAllTasks();
+    public String listAllTasks(Model model) {
+        List<Task> allTasks = taskService.getAllTasks();
+        model.addAttribute("allTasks", allTasks);
+        model.addAttribute("tasksCount", allTasks.size());
+        return "listAllTasks";
     }
 
-    @GetMapping(value = "/{taskId}")
-    public Task getTask(@PathVariable("taskId") int taskId) {
-        return taskService.getTask(taskId);
+    @GetMapping("/{taskId}")
+    public String listTaskById(@PathVariable("taskId") int taskId, Model model) {
+        model.addAttribute("task", taskService.getTask(taskId));
+        return "listTaskById";
+    }
+
+    @GetMapping("/new")
+    public String newTask(@ModelAttribute("task") Task task) {
+        return "newTask";
     }
 
     @PostMapping
-    public Task createTask(@RequestBody @Valid Task task) {
-        return taskService.saveTask(task);
+    public String createTask(@ModelAttribute("task") @Valid Task task, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "newTask";
+        }
+        taskService.saveTask(task);
+        return "redirect:/";
     }
 
-    @PutMapping(value = "/{taskId}")
-    public Task updateTask(@RequestBody @Valid Task task, @PathVariable("taskId") int taskId) {
-        return taskService.updateTask(task, taskId);
+    @GetMapping("/{taskId}/edit")
+    public String editTask(Model model, @PathVariable("taskId") int taskId) {
+        model.addAttribute("task", taskService.getTask(taskId));
+        return "editTask";
     }
 
-    @DeleteMapping(value = "/{taskId}")
-    public Task deleteTask(@PathVariable("taskId") int taskId) {
-        return taskService.deleteTask(taskId);
+    @PatchMapping("/{taskId}")
+    public String updateTask(@PathVariable("taskId") int taskId, @ModelAttribute("task") @Valid Task task,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editTask";
+        }
+        taskService.updateTask(task, taskId);
+        return "redirect:/";
+    }
+
+    @DeleteMapping("/{taskId}")
+    public String deleteTask(@PathVariable("taskId") int taskId) {
+        taskService.deleteTask(taskId);
+        return "redirect:/";
     }
 
     @DeleteMapping
-    public void deleteAllTasks() {
+    public String deleteAllTasks() {
         taskService.deleteAllTasks();
+        return "redirect:/";
     }
 }
