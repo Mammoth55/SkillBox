@@ -4,35 +4,66 @@ import static java.lang.System.out;
 
 public class RedisStorage {
 
-    // Объект для работы с Sorted Set'ом
-    Set<String> registeredUsers;
-
     // очередь для вывода
-    Jedis jedis;
+    private Jedis jedis;
 
     // счетчик для бонусного подъема в топ очереди
-    int count = 0;
+    private int count = 0;
 
     // ограничение счетчика для срабатывания
-    final int MAX_COUNT = 10;
+    private final int MAX_COUNT = 10;
 
-    final String USERS_KEY = "MEETING";
+    private final String USERS_KEY = "MEETING";
 
-    final String QUEUE_KEY = "QUEUE";
+    private final String QUEUE_KEY = "QUEUE";
 
-    private final static String REDIS_PORT = "redis://127.0.0.1:6379";
+    private final static String REDIS_URI = "redis://127.0.0.1:6379";
+
+    public String popQueueItemById(long Id) {
+        String str = jedis.lindex(QUEUE_KEY, Id);
+        jedis.lrem(QUEUE_KEY, 1, str);
+        return str;
+    }
+
+    public void pushQueueItem(String value) {
+        jedis.rpush(QUEUE_KEY, value);
+    }
+
+    public void clearQueue() {
+        jedis.del(QUEUE_KEY);
+    }
+
+    public long getQueueSize() {
+        return jedis.llen(QUEUE_KEY);
+    }
+
+    public Set<String> getSortedSet() {
+        return jedis.zrange(USERS_KEY, 0, -1);
+    }
+
+    public int incrementCount() {
+        return ++count;
+    }
+
+    public void clearCount() {
+        count = 0;
+    }
+
+    public int getMaxCount() {
+        return MAX_COUNT;
+    }
 
     void init() {
         try {
             out.println("Try to connect to REDIS...");
-            jedis = new Jedis(REDIS_PORT);
+            jedis = new Jedis(REDIS_URI);
             out.println("Done !");
         } catch (Exception Exc) {
             out.println("Не удалось подключиться к Redis !");
             out.println(Exc.getMessage());
         }
-        registeredUsers = jedis.zrange(USERS_KEY, 0, -1);
-        jedis.del(QUEUE_KEY);
+        Set<String> registeredUsers = getSortedSet();
+        clearQueue();
         out.println("Received users : " + registeredUsers.size());
         for (String str : registeredUsers) {
             jedis.rpush(QUEUE_KEY, str);

@@ -14,13 +14,12 @@ public class RedisMain {
     private static String getNextUser(RedisStorage redis) {
         String user;
         long index = 0;
-        if (++redis.count >= redis.MAX_COUNT) {
-            index = new Random().nextInt(redis.registeredUsers.size());
-            redis.count = 0;
+        if (redis.incrementCount() >= redis.getMaxCount()) {
+            index = new Random().nextInt((int) redis.getQueueSize());
+            redis.clearCount();
         }
-        user = redis.jedis.lindex(redis.QUEUE_KEY, index);
-        redis.jedis.lrem(redis.QUEUE_KEY, 1, user);
-        redis.jedis.rpush(redis.QUEUE_KEY, user);
+        user = redis.popQueueItemById(index);
+        redis.pushQueueItem(user);
         return user;
     }
 
