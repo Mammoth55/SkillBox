@@ -9,8 +9,8 @@ import java.util.Date;
 
 public class MyThread extends Thread {
 
-    private DbxClientV2 client;
-    private BufferedImage image;
+    private final DbxClientV2 client;
+    private final BufferedImage image;
 
     public MyThread(DbxClientV2 client, BufferedImage image) {
         this.client = client;

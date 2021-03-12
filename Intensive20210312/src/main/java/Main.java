@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class Main {
 
-    private static final String ACCESS_TOKEN = "oasnp83OXasAAAAAAAAAAUpGFgI0epRIUHd2iopBJvRvhPijMDqDz6WdtvoPspJp";
+    private static final String ACCESS_TOKEN = "KTdbZehpKVEAAAAAAAAAAVft-pP41_CyvE3tu-Ze7tiU-b4tTyVvmdP0_qkgs07i";
 
     public static void main(String[] args) {
         DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
