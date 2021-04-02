@@ -8,19 +8,18 @@ import java.util.Date;
 public class JavaSoundRecorder {
 
     static final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
-    static final long RECORD_TIME = 10000;
-    static final String ACCESS_TOKEN = "79TYUOAZQxoAAAAAAAAAAeaFnb51l_XomwXcXdeW0qBpnFm2l36Pke3nRP6gs01I";
-    static File file;
+    static final int RECORD_TIME = 10000;
+    static final String ACCESS_TOKEN = "iU0_-ADvc2sAAAAAAAAAAQOdoZgQQGA88hl3vXuFOXfedSniUbW_fk9w2GINTMmy";
+    DbxClientV2 client;
     AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
     AudioFormat format;
     TargetDataLine line;
-    DbxClientV2 client;
+    DataLine.Info info;
 
     public JavaSoundRecorder(DbxClientV2 client) {
         this.client = client;
         format = getAudioFormat();
-        DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-        // checks if system supports the data line
+        info = new DataLine.Info(TargetDataLine.class, format);
         if (!AudioSystem.isLineSupported(info)) {
             System.out.println("Line not supported");
             System.exit(0);
@@ -35,20 +34,15 @@ public class JavaSoundRecorder {
     public static void main(String[] args) throws InterruptedException {
         DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
         DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
-        for (int i = 0; i < 3; i++) {
-            JavaSoundRecorder recorder = new JavaSoundRecorder(client);
-            recorder.recordAudio(RECORD_TIME);
-            Thread.sleep(RECORD_TIME + 5000);
-        }
+        JavaSoundRecorder recorder = new JavaSoundRecorder(client);
+        recorder.recordAudio(RECORD_TIME);
+        Thread.sleep(RECORD_TIME);
     }
 
-    public void recordAudio(long milliseconds) {
-        //TODO: 20210225_212223.wav
-        file = new File(formatter.format(new Date()) + ".wav");
-        start();
-        stop(milliseconds);
-        //TODO: delete file
-        eraseFile(milliseconds);
+    public void recordAudio(int milliseconds) {
+        File file = new File(formatter.format(new Date()) + ".wav");
+        start(file);
+        finish(file, milliseconds);
     }
 
     AudioFormat getAudioFormat() {
@@ -60,11 +54,12 @@ public class JavaSoundRecorder {
         return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
     }
 
-    public void start() {
+    public void start(File file) {
         Thread thread = new Thread(() -> {
             try {
+                line = (TargetDataLine) AudioSystem.getLine(info);
                 line.open(format);
-                line.start();   // start capturing
+                line.start();
                 AudioInputStream ais = new AudioInputStream(line);
                 AudioSystem.write(ais, fileType, file);
             } catch (Exception ioe) {
@@ -75,34 +70,22 @@ public class JavaSoundRecorder {
         thread.start();
     }
 
-    public void eraseFile(long milliseconds) {
-        Thread thread = new Thread(() -> {
-            try {
-                Thread.sleep(milliseconds + 5000);
-                file.delete();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        thread.start();
-    }
-
-    public void stop(long milliseconds) {
+    void finish(File file, int milliseconds) {
         Thread thread = new Thread(() -> {
             try {
                 Thread.sleep(milliseconds);
-                System.out.println("DONE.");
                 line.stop();
                 line.close();
-            //TODO: upload file to Dropbox
                 System.out.println("Uploading file " + file.getName());
                 try (InputStream in = new FileInputStream(file)) {
                     client.files().uploadBuilder("/" + file.getName()).uploadAndFinish(in);
                 }
-            } catch(Exception ex) {
-                ex.printStackTrace();
+                file.delete();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             System.out.println("File " + file.getName() + " uploaded.");
+            recordAudio(milliseconds);
         });
         thread.start();
     }
