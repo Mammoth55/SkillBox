@@ -9,7 +9,7 @@ import java.util.List;
 // перекалибровка на 32 региона = 41 сек
 // после рефакторинга main (Multithreading => 4 потоков + 4 файлов) = 20 сек,
 //      т.к. 4 ядра CPU и распределение вычислений между ними
-// после рефакторинга main (Multithreading => 8 потоков + 8 файлов) = 19 сек,
+// после рефакторинга main (Multithreading => 8 потоков + 8 файлов) = 18 сек,
 //      т.к. 4 ядра CPU и распределение вычислений между ними
 // после рефакторинга main (Multithreading => 16 потоков + 16 файлов) = 22 сек,
 //      т.к. 4 ядра CPU и распределение вычислений между ними
@@ -19,7 +19,7 @@ import java.util.List;
 public class Loader {
 
     static final int NUMBER_CAPACITY = 1000;
-    static final int REGION_CAPACITY = 192;
+    static final int REGION_CAPACITY = 32;
     static final char[] LETTERS = {'У', 'К', 'Е', 'Н', 'Х', 'В', 'А', 'Р', 'О', 'С', 'М', 'Т'};
     static final String FILE_NAME = "src/main/resources/numbers";
     static final String FILE_EXT = ".txt";

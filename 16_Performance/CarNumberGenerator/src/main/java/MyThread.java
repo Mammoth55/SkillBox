@@ -15,36 +15,33 @@ public class MyThread implements Runnable {
 
     @Override
     public void run() {
-        PrintWriter writer = null;
         System.out.println(Thread.currentThread().getName() + " in progress...");
-        try {
-            writer = new PrintWriter(fileName);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        for (int regionCode = regionStart; regionCode < regionStart + regionCount; regionCode++) {
-            if (regionCode == 0) {
-                continue;
-            }
-            StringBuilder builder = new StringBuilder();
-            for (int number = 1; number < Loader.NUMBER_CAPACITY; number++) {
-                for (char firstLetter : Loader.LETTERS) {
-                    for (char secondLetter : Loader.LETTERS) {
-                        for (char thirdLetter : Loader.LETTERS) {
-                            builder.append(firstLetter);
-                            builder.append(padNumber(number, 3));
-                            builder.append(secondLetter);
-                            builder.append(thirdLetter);
-                            builder.append(padNumber(regionCode, 2));
-                            builder.append('\n');
+        try (PrintWriter writer = new PrintWriter(fileName)) {
+            for (int regionCode = regionStart; regionCode < regionStart + regionCount; regionCode++) {
+                if (regionCode == 0) {
+                    continue;
+                }
+                StringBuilder builder = new StringBuilder();
+                for (int number = 1; number < Loader.NUMBER_CAPACITY; number++) {
+                    for (char firstLetter : Loader.LETTERS) {
+                        for (char secondLetter : Loader.LETTERS) {
+                            for (char thirdLetter : Loader.LETTERS) {
+                                builder.append(firstLetter);
+                                builder.append(padNumber(number, 3));
+                                builder.append(secondLetter);
+                                builder.append(thirdLetter);
+                                builder.append(padNumber(regionCode, 2));
+                                builder.append('\n');
+                            }
                         }
                     }
                 }
+                writer.write(builder.toString());
             }
-            writer.write(builder.toString());
+            writer.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        writer.flush();
-        writer.close();
     }
 
     private static StringBuilder padNumber(int number, int numberLength) {
