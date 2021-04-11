@@ -3,8 +3,8 @@ import java.util.Date;
 
 public class Voter {
 
-    private String name;
-    private Date birthDay;
+    private final String name;
+    private final Date birthDay;
 
     public Voter(String name, Date birthDay) {
         this.name = name;
@@ -20,8 +20,8 @@ public class Voter {
     @Override
     public int hashCode() {
         long code = name.hashCode() + birthDay.hashCode();
-        while (code > Integer.MAX_VALUE) {
-            code = code / 10;
+        if (code > Integer.MAX_VALUE) {
+            code /= 2;
         }
         return (int) code;
     }

@@ -17,27 +17,22 @@ public class TimePeriod implements Comparable<TimePeriod> {
         this.from = from;
         this.to = to;
         SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
-        if (!dayFormat.format(new Date(from)).equals(dayFormat.format(new Date(to)))) {
-            throw new IllegalArgumentException("Dates 'from' and 'to' must be within ONE day!");
-        }
+        if (! dayFormat.format(new Date(from)).equals(dayFormat.format(new Date(to))))
+            throw new IllegalArgumentException("Dates 'from' and 'to' must be within ONE day !");
     }
 
     public TimePeriod(Date from, Date to) {
         this.from = from.getTime();
         this.to = to.getTime();
         SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
-        if (!dayFormat.format(from).equals(dayFormat.format(to))) {
+        if (!dayFormat.format(from).equals(dayFormat.format(to)))
             throw new IllegalArgumentException("Dates 'from' and 'to' must be within ONE day!");
-        }
     }
 
     public void appendTime(Date visitTime) {
         SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
-        if (!dayFormat.format(new Date(from))
-            .equals(dayFormat.format(new Date(visitTime.getTime())))) {
-            throw new IllegalArgumentException(
-                "Visit time must be within the same day as the current TimePeriod!");
-        }
+        if (!dayFormat.format(new Date(from)).equals(dayFormat.format(new Date(visitTime.getTime()))))
+            throw new IllegalArgumentException("Visit time must be within the same day as the current TimePeriod!");
         long visitTimeTs = visitTime.getTime();
         if (visitTimeTs < from) {
             from = visitTimeTs;
