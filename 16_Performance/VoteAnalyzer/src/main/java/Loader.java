@@ -6,6 +6,9 @@ import java.io.File;
 // Default RUN with DOM Parser - 308 Mb used (with configuration key -Xmx500M)
 // RUN with SAX Parser - 144 Mb used
 // RUN with SAX Parser (after refactoring classes) - 33 Mb used
+// RUN with SAX Parser (with epsilon GC) - 2061 Mb used
+// RUN with SAX Parser (after deleting doubled "new TimePeriod(visitTime, visitTime)") - 1174 Mb used
+//
 
 public class Loader {
 

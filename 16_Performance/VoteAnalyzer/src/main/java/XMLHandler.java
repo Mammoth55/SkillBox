@@ -1,7 +1,5 @@
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,11 +37,11 @@ public class XMLHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         try {
             if (qName.equals("voter") && voter == null) {
-                Date birthDay = birthDayFormat.parse(attributes.getValue("birthDay"));
-                voter = new Voter(attributes.getValue("name"), birthDay);
+                voter = new Voter(attributes.getValue("name"),
+                        birthDayFormat.parse(attributes.getValue("birthDay")));
             } else if (qName.equals("visit") && voter != null) {
                 int count = voterCounts.getOrDefault(voter, 0);
                 voterCounts.put(voter, count + 1);
@@ -55,7 +53,7 @@ public class XMLHandler extends DefaultHandler {
                     workTime = new WorkTime();
                     voteStationWorkTimes.put(station, workTime);
                 }
-                workTime.addVisitTime(time);
+                workTime.addVisitTime(time.getTime());
             }
         } catch (ParseException ex) {
             ex.printStackTrace();
@@ -63,7 +61,7 @@ public class XMLHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         if (qName.equals("voter")) {
             voter = null;
         }

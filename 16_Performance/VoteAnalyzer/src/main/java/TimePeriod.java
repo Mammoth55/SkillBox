@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class TimePeriod implements Comparable<TimePeriod> {
 
+    private static final SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
     private long from;
     private long to;
 
@@ -16,29 +17,17 @@ public class TimePeriod implements Comparable<TimePeriod> {
     public TimePeriod(long from, long to) {
         this.from = from;
         this.to = to;
-        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
         if (! dayFormat.format(new Date(from)).equals(dayFormat.format(new Date(to))))
             throw new IllegalArgumentException("Dates 'from' and 'to' must be within ONE day !");
     }
 
-    public TimePeriod(Date from, Date to) {
-        this.from = from.getTime();
-        this.to = to.getTime();
-        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
-        if (!dayFormat.format(from).equals(dayFormat.format(to)))
-            throw new IllegalArgumentException("Dates 'from' and 'to' must be within ONE day!");
-    }
-
-    public void appendTime(Date visitTime) {
-        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
-        if (!dayFormat.format(new Date(from)).equals(dayFormat.format(new Date(visitTime.getTime()))))
+    public void appendTime(long visitTime) {
+        if (!dayFormat.format(new Date(from)).equals(dayFormat.format(new Date(visitTime))))
             throw new IllegalArgumentException("Visit time must be within the same day as the current TimePeriod!");
-        long visitTimeTs = visitTime.getTime();
-        if (visitTimeTs < from) {
-            from = visitTimeTs;
-        }
-        if (visitTimeTs > to) {
-            to = visitTimeTs;
+        if (visitTime < from) {
+            from = visitTime;
+        } else if (visitTime > to) {
+            to = visitTime;
         }
     }
 
@@ -52,7 +41,6 @@ public class TimePeriod implements Comparable<TimePeriod> {
 
     @Override
     public int compareTo(TimePeriod period) {
-        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
         Date current = new Date();
         Date compared = new Date();
         try {
