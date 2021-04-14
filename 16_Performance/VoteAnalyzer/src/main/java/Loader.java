@@ -8,7 +8,8 @@ import java.io.File;
 // RUN with SAX Parser (after refactoring classes) - 33 Mb used
 // RUN with SAX Parser (with epsilon GC) - 2061 Mb used
 // RUN with SAX Parser (after deleting doubled "new TimePeriod(visitTime, visitTime)") - 1174 Mb used
-//
+// RUN with SAX Parser (after refactoring method compareTo only) - 550 Mb used
+// RUN with SAX Parser (after refactoring whole class "TimePeriod") - 264 Mb used
 
 public class Loader {
 

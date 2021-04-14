@@ -1,10 +1,8 @@
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class TimePeriod implements Comparable<TimePeriod> {
 
-    private static final SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
+    private static final long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
     private long from;
     private long to;
 
@@ -17,12 +15,12 @@ public class TimePeriod implements Comparable<TimePeriod> {
     public TimePeriod(long from, long to) {
         this.from = from;
         this.to = to;
-        if (! dayFormat.format(new Date(from)).equals(dayFormat.format(new Date(to))))
+        if (from / MILLISECONDS_IN_DAY != to / MILLISECONDS_IN_DAY)
             throw new IllegalArgumentException("Dates 'from' and 'to' must be within ONE day !");
     }
 
     public void appendTime(long visitTime) {
-        if (!dayFormat.format(new Date(from)).equals(dayFormat.format(new Date(visitTime))))
+        if (this.from / MILLISECONDS_IN_DAY != visitTime / MILLISECONDS_IN_DAY)
             throw new IllegalArgumentException("Visit time must be within the same day as the current TimePeriod!");
         if (visitTime < from) {
             from = visitTime;
@@ -34,21 +32,11 @@ public class TimePeriod implements Comparable<TimePeriod> {
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        String from = dateFormat.format(this.from);
-        String to = timeFormat.format(this.to);
-        return from + "-" + to;
+        return dateFormat.format(this.from) + "-" + timeFormat.format(this.to);
     }
 
     @Override
     public int compareTo(TimePeriod period) {
-        Date current = new Date();
-        Date compared = new Date();
-        try {
-            current = dayFormat.parse(dayFormat.format(new Date(from)));
-            compared = dayFormat.parse(dayFormat.format(new Date(period.from)));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return current.compareTo(compared);
+        return (int) (this.from / MILLISECONDS_IN_DAY - period.from / MILLISECONDS_IN_DAY);
     }
 }
