@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.skillbox</groupId>
-	<artifactId>springboot_rest</artifactId>
+	<artifactId>springbootrest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>blog_engine</name>
-	<description>Diplom project for Spring Boot</description>
+	<description>Diplom project for Spring Boot REST</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
