@@ -3,7 +3,7 @@ package org.skillbox.springbootrest.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "posts")
@@ -46,13 +46,13 @@ public class Post {
     @JoinTable(name = "tag2post",
             joinColumns = @JoinColumn(name = "postId"),
             inverseJoinColumns = @JoinColumn(name = "tagId"))
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<PostComment> postComments;
+    private Set<PostComment> postComments;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<PostVote> postVotes;
+    private Set<PostVote> postVotes;
 
     public int getId() {
         return id;
@@ -126,27 +126,51 @@ public class Post {
         this.viewCount = viewCount;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 
-    public List<PostComment> getPostComments() {
+    public Set<PostComment> getPostComments() {
         return postComments;
     }
 
-    public void setPostComments(List<PostComment> postComments) {
+    public void setPostComments(Set<PostComment> postComments) {
         this.postComments = postComments;
     }
 
-    public List<PostVote> getPostVotes() {
+    public Set<PostVote> getPostVotes() {
         return postVotes;
     }
 
-    public void setPostVotes(List<PostVote> postVotes) {
+    public void setPostVotes(Set<PostVote> postVotes) {
         this.postVotes = postVotes;
+    }
+
+    public int getLikes() {
+        int result = 0;
+        for (PostVote postVote : postVotes) {
+            if (postVote.getValue() > 0) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public int getDislikes() {
+        int result = 0;
+        for (PostVote postVote : postVotes) {
+            if (postVote.getValue() < 0) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public int getCommentCount() {
+        return postComments.size();
     }
 }

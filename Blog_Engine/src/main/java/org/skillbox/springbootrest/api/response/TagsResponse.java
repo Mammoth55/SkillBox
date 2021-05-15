@@ -1,18 +1,18 @@
 package org.skillbox.springbootrest.api.response;
 
 import org.skillbox.springbootrest.model.TagWeight;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TagsResponse {
 
-    private List<TagWeight> tags = new ArrayList<>();
+    private Set<TagWeight> tagWeights = new HashSet<>();
 
-    public List<TagWeight> getTags() {
-        return tags;
+    public Set<TagWeight> getTagWeights() {
+        return tagWeights;
     }
 
-    public void setTags(List<TagWeight> tags) {
-        this.tags = tags;
+    public void setTagWeights(Set<TagWeight> tagWeights) {
+        this.tagWeights = tagWeights;
     }
 }

@@ -5,9 +5,9 @@ import java.sql.Timestamp;
 
 public class PostResponse {
 
-    private int count;
+    private int postId;
 
-    private Timestamp timestamp;
+    private long timestamp;
 
     private SimpleUser user;
 
@@ -23,19 +23,35 @@ public class PostResponse {
 
     private int viewCount;
 
-    public int getCount() {
-        return count;
+    public PostResponse() {
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public PostResponse(int postId, long timestamp, SimpleUser user, String title, String announce,
+                        int likeCount, int dislikeCount, int commentCount, int viewCount) {
+        this.postId = postId;
+        this.timestamp = timestamp;
+        this.user = user;
+        this.title = title;
+        this.announce = announce;
+        this.likeCount = likeCount;
+        this.dislikeCount = dislikeCount;
+        this.commentCount = commentCount;
+        this.viewCount = viewCount;
     }
 
-    public Timestamp getTimestamp() {
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 

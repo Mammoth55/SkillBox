@@ -14,7 +14,7 @@ public class PostComment {
     private int id;
 
     @JsonProperty("parent_id")
-    private int parentId;
+    private Integer parentId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id", insertable = false, updatable = false)

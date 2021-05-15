@@ -1,11 +1,11 @@
 package org.skillbox.springbootrest.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tags")
-public class Tag {
+public class Tag implements Comparable<Tag> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class Tag {
     @JoinTable(name = "tag2post",
             joinColumns = @JoinColumn(name = "tagId"),
             inverseJoinColumns = @JoinColumn(name = "postId"))
-    private List<Post> posts;
+    private Set<Post> posts;
 
     public int getId() {
         return id;
@@ -38,11 +38,17 @@ public class Tag {
         this.name = name;
     }
 
-    public List<Post> getPosts() {
+    public Set<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<Post> posts) {
+    public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    @Override
+    public int compareTo(Tag o) {
+        int result = o.getPosts().size() - this.getPosts().size(); // need reversed order
+        return result != 0 ? result : this.getName().compareTo(o.getName());
     }
 }
