@@ -1,5 +1,6 @@
 package org.skillbox.springbootrest.service;
 
+import org.skillbox.springbootrest.api.response.CalendarResponse;
 import org.skillbox.springbootrest.api.response.PostFilterMode;
 import org.skillbox.springbootrest.api.response.PostResponse;
 import org.skillbox.springbootrest.api.response.PostsResponse;
@@ -11,12 +12,20 @@ import org.skillbox.springbootrest.repository.PostRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
 public class PostService {
+
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     private final PostRepository postRepository;
 
@@ -24,10 +33,18 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public ResponseEntity<PostsResponse> getPosts(Integer offset, Integer limit, PostFilterMode mode) {
-        List<Post> sourcePosts = postRepository.findAll().stream().
-                filter(e -> e.getIsActive() > 0 || e.getModerationStatus().equals(ModerationStatus.ACCEPTED)).
-                collect(Collectors.toList());
+    public ResponseEntity<PostsResponse> getPosts(Integer offset, Integer limit, PostFilterMode mode, String query, String date) {
+        Predicate<Post> predicate1 = post -> post.getIsActive() > 0;
+        Predicate<Post> predicate2 = post -> post.getModerationStatus().equals(ModerationStatus.ACCEPTED);
+        List<Predicate<Post>> predicates = Arrays.asList(predicate1, predicate2);
+        if (query != null) {
+            predicates.add(e -> e.getText().contains(query.trim()));
+        }
+        if (date != null) {
+            predicates.add(e -> getFormattedDate(e.getTime()).equals(date));
+        }
+        Predicate<Post> compositPredicate = predicates.stream().reduce(predicate -> true, Predicate::and);
+        List<Post> sourcePosts = postRepository.findAll().stream().filter(compositPredicate).collect(Collectors.toList());
         offset = offset == null ? 0 : offset;
         limit = limit == null ? 10 : limit;
         mode = mode == null ? PostFilterMode.recent : mode;
@@ -81,5 +98,23 @@ public class PostService {
             announce = announce.substring(0, 150);
         }
         return announce.trim() + "...";
+    }
+
+    public ResponseEntity<CalendarResponse> getCalendar(Integer year) {
+        CalendarResponse calendarResponse = new CalendarResponse();
+        year = year == null ? Calendar.getInstance().get(Calendar.YEAR) : year;
+        for (Post post : postRepository.findAll()) {
+            calendarResponse.getYears().add(post.getTime().toLocalDateTime().getYear());
+            if (post.getIsActive() > 0 && post.getModerationStatus().equals(ModerationStatus.ACCEPTED)
+                    && post.getTime().toLocalDateTime().getYear() == year) {
+                String date = getFormattedDate(post.getTime());
+                calendarResponse.getPosts().put(date, calendarResponse.getPosts().getOrDefault(date, 0) + 1);
+            }
+        }
+        return new ResponseEntity<>(calendarResponse, HttpStatus.OK);
+    }
+
+    private String getFormattedDate(Timestamp timestamp) {
+        return DATE_FORMAT.format(timestamp.getTime());
     }
 }

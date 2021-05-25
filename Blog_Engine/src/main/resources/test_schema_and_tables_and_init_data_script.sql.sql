@@ -47,15 +47,16 @@ CREATE TABLE posts
     user_id INT NOT NULL,
     view_count INT NOT NULL,
     CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5;
+) ENGINE=InnoDB AUTO_INCREMENT=6;
 
 --
 -- Dumping data for table `posts`
 --
-insert into posts values(1, 1, 'ACCEPTED', 1, 'Спринг - самый популярный и востребованный фреймворк для разработки на java в последние годы. Занимает первое место ввиду его повышенного удобства в разработке комплексных web-приложений, требующих высокого качества. С его помощью разработчики с легкостью создают программные решения для крупных предприятий.', '2020-12-22 20:01:00', 'Спринг - самый популярный фреймворк.', 2, 1);
-insert into posts values(2, 1, 'ACCEPTED', 2, 'Java в последние годы уверенно держится в топе самых популярных современных языков программирования, по данным TIOBE и других различных независимых ресурсов.', '2021-01-23 20:01:00', 'Java в последние годы все еще в топе.', 3, 2);
-insert into posts values(3, 1, 'ACCEPTED', 2, 'Фреймворк Hibernate является реализацией JPA в Spring Boot. JDBC - это стандарт доступа к базам данных, JPA - это стандарт персистентности, Hibernate - это реализующий его ORM, Spring Data - это механизм организации репозиториев, а репозиторий - это абстракция, лежащая на уровень выше ORM. То есть Spring Data использует Hibernate, а Hibernate использует JDBC.', '2021-02-27 20:01:00', 'Фреймворк Hibernate является реализацией JPA в Spring Boot.', 4, 3);
-insert into posts values(4, 1, 'ACCEPTED', 2, 'Миссия Skillbox — дать возможность каждому быть актуальным и востребованным специалистом прямо сейчас. Вне зависимости от возраста и географии. Предлагается самый большой выбор курсов дополнительного профессионального образования.', '2021-03-28 21:01:00', 'Онлайн-университет Skillbox — Миссия невыполнима ?', 1, 4);
+insert into posts values(1, 1, 'ACCEPTED', 1, '#Spring - самый популярный и востребованный фреймворк для разработки на #java в последние годы. Занимает первое место ввиду его повышенного удобства в разработке комплексных web-приложений, требующих высокого качества. С его помощью разработчики с легкостью создают программные решения для крупных предприятий.', '2018-05-05 20:01:00', 'Спринг - самый популярный фреймворк.', 2, 1);
+insert into posts values(2, 1, 'ACCEPTED', 2, '#Java в последние годы уверенно держится в топе самых популярных современных языков программирования, по данным TIOBE и других различных независимых ресурсов.', '2019-05-07 20:01:00', 'Java в последние годы все еще в топе.', 3, 2);
+insert into posts values(3, 1, 'ACCEPTED', 1, 'Фреймворк Hibernate является в Java реализацией JPA в #Spring Boot. JDBC - это стандарт доступа к базам данных, JPA - это стандарт персистентности, Hibernate - это реализующий его ORM, Spring Data - это механизм организации репозиториев, а репозиторий - это абстракция, лежащая на уровень выше ORM. То есть Spring Data использует Hibernate, а Hibernate использует JDBC.', '2020-05-09 21:01:00', 'Фреймворк Hibernate является реализацией JPA в Spring Boot.', 4, 3);
+insert into posts values(4, 1, 'ACCEPTED', 2, 'Миссия Skillbox — дать возможность каждому быть актуальным и востребованным специалистом прямо сейчас. Вне зависимости от возраста и географии. Предлагается самый большой выбор курсов дополнительного профессионального образования.', '2021-05-11 03:01:00', 'Онлайн-университет Skillbox — Миссия выполнима ?', 1, 4);
+insert into posts values(5, 1, 'ACCEPTED', 1, 'HeadHunter — один из самых крупных сайтов по поиску работы и сотрудников в мире (по данным рейтинга Similarweb). Мы создаем передовые технологии на всех доступных платформах для того, чтобы работодатели могли быстро найти подходящего сотрудника, а соискатели — хорошую работу. Наши мобильные приложения стабильно занимают первые места в категории «Бизнес» на всех платформах.', '2021-05-11 11:55:55', 'HeadHunter — один из самых крупных сайтов по поиску работы и сотрудников в мире.', 3, 4);
 
 --
 -- Table structure for table `post_votes`
@@ -67,15 +68,17 @@ CREATE TABLE post_votes
     post_id INT NOT NULL,
     time DATETIME NOT NULL,
     value TINYINT NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5;
+) ENGINE=InnoDB AUTO_INCREMENT=7;
 
 --
 -- Dumping data for table post_votes
 --
-insert into post_votes values(1, 1, 1, '2020-12-24 22:01:00', 1);
-insert into post_votes values(2, 2, 1, '2020-12-25 01:11:29', 1);
-insert into post_votes values(3, 3, 3, '2020-12-26 02:31:00', 1);
-insert into post_votes values(4, 4, 4, '2020-12-29 02:38:00', -1);
+insert into post_votes values(1, 1, 1, '2021-05-15 03:22:33', 1);
+insert into post_votes values(2, 2, 1, '2021-05-15 01:11:29', 1);
+insert into post_votes values(3, 3, 3, '2021-05-15 02:31:00', 1);
+insert into post_votes values(4, 4, 4, '2021-05-15 02:38:00', -1);
+insert into post_votes values(5, 1, 5, '2021-05-15 02:31:00', 1);
+insert into post_votes values(6, 4, 5, '2021-05-15 02:31:00', -1);
 
 --
 -- Table structure for table `tags`
@@ -84,7 +87,7 @@ CREATE TABLE tags
 (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5;
+) ENGINE=InnoDB AUTO_INCREMENT=6;
 
 --
 -- Dumping data for table `tags`
@@ -93,6 +96,7 @@ insert into tags values(1, 'JAVA');
 insert into tags values(2, 'SPRING');
 insert into tags values(3, 'HIBERNATE');
 insert into tags values(4, 'SKILLBOX');
+insert into tags values(5, 'HEADHUNTER');
 
 --
 -- Table structure for table `tag2post`
@@ -104,16 +108,19 @@ CREATE TABLE tag2post
     tag_id INT NOT NULL,
     CONSTRAINT `post` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
     CONSTRAINT `tag` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6;
+) ENGINE=InnoDB AUTO_INCREMENT=9;
 
 --
 -- Dumping data for table `tag2post`
 --
 insert into tag2post values(1, 1, 1);
-insert into tag2post values(2, 2, 2);
+insert into tag2post values(2, 3, 2);
 insert into tag2post values(3, 3, 3);
 insert into tag2post values(4, 4, 4);
 insert into tag2post values(5, 2, 1);
+insert into tag2post values(6, 5, 5);
+insert into tag2post values(7, 1, 2);
+insert into tag2post values(8, 3, 1);
 
 --
 -- Table structure for table `post_comments`
@@ -131,13 +138,13 @@ CREATE TABLE post_comments
 --
 -- Dumping data for table `post_comments`
 --
-insert into post_comments values(1, null, 1, 1, '2021-01-11 11:33:00', 'Its true )))');
-insert into post_comments values(2, null, 2, 2, '2021-01-13 14:44:00', 'May be NOT... )');
-insert into post_comments values(3, null, 3, 3, '2021-01-15 14:55:00', 'EXACTLY !!!');
-insert into post_comments values(4, null, 4, 4, '2021-01-18 19:12:00', 'I am still HERE... )))');
-insert into post_comments values(5, null, 4, 3, '2021-02-18 19:12:00', 'I am almost searching for work ! )))');
-insert into post_comments values(6, null, 3, 2, '2021-03-15 14:55:00', 'May be YES... )');
-insert into post_comments values(7, null, 3, 1, '2021-04-15 14:55:00', 'Its impossible !!!');
+insert into post_comments values(1, null, 5, 2, '2021-05-14 11:33:00', 'Its true )))');
+insert into post_comments values(2, null, 2, 2, '2021-05-14 14:44:22', 'May be NOT... )');
+insert into post_comments values(3, null, 3, 3, '2021-05-14 14:55:00', 'EXACTLY !!!');
+insert into post_comments values(4, null, 4, 4, '2021-05-14 19:12:11', 'I am still HERE... )))');
+insert into post_comments values(5, null, 4, 3, '2021-05-15 09:12:00', 'I am almost searching for work ! )))');
+insert into post_comments values(6, null, 3, 4, '2021-05-15 11:55:11', 'May be YES... )');
+insert into post_comments values(7, null, 3, 1, '2021-05-15 13:55:00', 'Its impossible !!!');
 
 --
 -- Table structure for table `captcha_codes`
@@ -153,7 +160,7 @@ CREATE TABLE captcha_codes
 --
 -- Dumping data for table `captcha_codes`
 --
-insert into captcha_codes values(1, '2021-05-11 16:21:00', 'SpRiNg', 'SpRiNg');
+insert into captcha_codes values(1, '2021-05-14 23:21:00', 'SpRiNg', 'SpRiNg');
 
 --
 -- Table structure for table `global_settings`
