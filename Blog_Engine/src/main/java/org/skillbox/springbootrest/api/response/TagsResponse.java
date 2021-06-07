@@ -6,13 +6,13 @@ import java.util.Set;
 
 public class TagsResponse {
 
-    private Set<TagWeight> tagWeights = new HashSet<>();
+    private Set<TagWeight> tags = new HashSet<>();
 
-    public Set<TagWeight> getTagWeights() {
-        return tagWeights;
+    public Set<TagWeight> getTags() {
+        return tags;
     }
 
-    public void setTagWeights(Set<TagWeight> tagWeights) {
-        this.tagWeights = tagWeights;
+    public void setTags(Set<TagWeight> tags) {
+        this.tags = tags;
     }
 }

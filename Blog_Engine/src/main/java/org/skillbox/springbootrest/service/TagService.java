@@ -8,7 +8,8 @@ import org.skillbox.springbootrest.repository.TagRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.util.*;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,12 +29,12 @@ public class TagService {
         int totalPosts = postRepository.findAll().size();
         double normalK = totalPosts / (double) mostFrequentTag.getPosts().size();
         if (query != null) {
-            tags = tags.stream().filter(e -> e.getName().contains(query.trim().toUpperCase())).collect(Collectors.toSet());
+            tags = tags.stream().filter(tag -> tag.getName().contains(query.trim().toUpperCase())).collect(Collectors.toSet());
         }
         TagsResponse response = new TagsResponse();
         for (Tag tag : tags) {
             double currentWeight = normalK * tag.getPosts().size() / totalPosts;
-            response.getTagWeights().add(new TagWeight(tag.getName(), currentWeight));
+            response.getTags().add(new TagWeight(tag.getName(), currentWeight));
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

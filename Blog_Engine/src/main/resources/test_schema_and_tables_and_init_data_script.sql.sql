@@ -155,12 +155,14 @@ CREATE TABLE captcha_codes
     time DATETIME NOT NULL,
     code TINYTEXT NOT NULL,
     secret_code TINYTEXT NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2;
+) ENGINE=InnoDB AUTO_INCREMENT=4;
 
 --
 -- Dumping data for table `captcha_codes`
 --
-insert into captcha_codes values(1, '2021-05-14 23:21:00', 'SpRiNg', 'SpRiNg');
+insert into captcha_codes values(1, '2021-05-14 23:21:00', 'SpRiNg00000000000000', 'JaVa');
+insert into captcha_codes values(2, '2021-05-24 23:21:00', '321321321321321321', 'OteLLo');
+insert into captcha_codes values(3, '2021-06-06 00:12:00', 'роылвоарлоыпаоылвпаыв', 'SpringBOOT');
 
 --
 -- Table structure for table `global_settings`

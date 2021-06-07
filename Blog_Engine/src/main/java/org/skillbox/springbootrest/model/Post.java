@@ -122,6 +122,10 @@ public class Post {
         return viewCount;
     }
 
+    public void incViewCount() {
+        this.viewCount++;
+    }
+
     public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
     }

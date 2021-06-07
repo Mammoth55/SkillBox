@@ -1,11 +1,10 @@
 package org.skillbox.springbootrest.api.response;
 
 import org.skillbox.springbootrest.model.SimpleUser;
-import java.sql.Timestamp;
 
-public class PostResponse {
+public class PrePostResponse {
 
-    private int postId;
+    private int id;
 
     private long timestamp;
 
@@ -23,28 +22,12 @@ public class PostResponse {
 
     private int viewCount;
 
-    public PostResponse() {
+    public int getId() {
+        return id;
     }
 
-    public PostResponse(int postId, long timestamp, SimpleUser user, String title, String announce,
-                        int likeCount, int dislikeCount, int commentCount, int viewCount) {
-        this.postId = postId;
-        this.timestamp = timestamp;
-        this.user = user;
-        this.title = title;
-        this.announce = announce;
-        this.likeCount = likeCount;
-        this.dislikeCount = dislikeCount;
-        this.commentCount = commentCount;
-        this.viewCount = viewCount;
-    }
-
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public long getTimestamp() {

@@ -1,0 +1,26 @@
+blog:
+    copyright: Мамонтов Вячеслав
+    copyrightFrom: 2021
+    email: slamam@mail.ru
+    phone: +7 983 524 7953
+    subtitle: Рассказы разработчиков
+    title: DevPub
+
+general:
+    expiredPeriod: 3600000
+    passwordMinLength: 6
+
+spring:
+    datasource:
+        initialization-mode: always
+        password: 3141592653589+Pi
+        url: jdbc:mysql://localhost:3306/blog_engine?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+        username: root
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: false

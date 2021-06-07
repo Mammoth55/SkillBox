@@ -1,24 +1,26 @@
 package org.skillbox.springbootrest.api.response;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConfigurationProperties(prefix = "blog")
 public class InitResponse {
 
-    @Value("${blog.title}")
+//    @Value("${blog.title}")
     private String title;
 
-    @Value("${blog.subtitle}")
+//    @Value("${blog.subtitle}")
     private String subtitle;
 
-    @Value("${blog.phone}")
+//    @Value("${blog.phone}")
     private String phone;
 
-    @Value("${blog.email}")
+//    @Value("${blog.email}")
     private String email;
 
-    @Value("${blog.copyright}")
+//    @Value("${blog.copyright}")
     private String copyright;
 
     @Value("${blog.copyrightFrom}")

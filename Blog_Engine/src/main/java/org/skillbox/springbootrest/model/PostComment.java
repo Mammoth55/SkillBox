@@ -13,6 +13,12 @@ public class PostComment {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "time")
+    private Timestamp timestamp;
+
+    @Column(name = "text")
+    private String text;
+
     @JsonProperty("parent_id")
     private Integer parentId;
 
@@ -23,12 +29,6 @@ public class PostComment {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
-
-    @Column(name = "time")
-    private Timestamp time;
-
-    @Column(name = "text")
-    private String text;
 
     public int getId() {
         return id;
@@ -62,12 +62,12 @@ public class PostComment {
         this.user = user;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getText() {

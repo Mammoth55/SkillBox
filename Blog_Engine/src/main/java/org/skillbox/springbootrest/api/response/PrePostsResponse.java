@@ -3,11 +3,11 @@ package org.skillbox.springbootrest.api.response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostsResponse {
+public class PrePostsResponse {
 
     private int count;
 
-    private List<PostResponse> posts = new ArrayList<>();
+    private List<PrePostResponse> posts = new ArrayList<>();
 
     public int getCount() {
         return count;
@@ -17,11 +17,11 @@ public class PostsResponse {
         this.count = count;
     }
 
-    public List<PostResponse> getPosts() {
+    public List<PrePostResponse> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<PostResponse> posts) {
+    public void setPosts(List<PrePostResponse> posts) {
         this.posts = posts;
     }
 }

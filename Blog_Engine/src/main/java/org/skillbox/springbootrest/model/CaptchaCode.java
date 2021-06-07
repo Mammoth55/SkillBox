@@ -22,6 +22,15 @@ public class CaptchaCode {
     @JsonProperty("secret_code")
     private String secretCode;
 
+    public CaptchaCode() {
+    }
+
+    public CaptchaCode(Timestamp time, String code, String secretCode) {
+        this.time = time;
+        this.code = code;
+        this.secretCode = secretCode;
+    }
+
     public int getId() {
         return id;
     }
