@@ -2,6 +2,7 @@ package org.skillbox.springbootrest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,19 +14,23 @@ public class PostComment {
     @Column(name = "id")
     private int id;
 
+    @NotNull
     @Column(name = "time")
     private Timestamp timestamp;
 
-    @Column(name = "text")
+    @NotNull
+    @Column(name = "text", length = 9999)
     private String text;
 
     @JsonProperty("parent_id")
     private Integer parentId;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id", insertable = false, updatable = false)
     private Post post;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;

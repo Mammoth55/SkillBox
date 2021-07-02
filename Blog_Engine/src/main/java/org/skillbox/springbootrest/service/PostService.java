@@ -3,74 +3,62 @@ package org.skillbox.springbootrest.service;
 import org.skillbox.springbootrest.api.response.*;
 import org.skillbox.springbootrest.model.*;
 import org.skillbox.springbootrest.repository.PostRepository;
-import org.skillbox.springbootrest.repository.TagRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.Calendar;
+import java.util.Optional;
 
 @Service
 public class PostService {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final int MILLIS_IN_SECOND = 1000;
+    private static final Sort DEFAULT_SORT = Sort.by("time").descending();
 
     private final PostRepository postRepository;
-    private final TagRepository tagRepository;
 
-    public PostService(PostRepository postRepository, TagRepository tagRepository) {
+    public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
-        this.tagRepository = tagRepository;
     }
 
-    public ResponseEntity<PrePostsResponse> getPosts(int offset, int limit, PostFilterMode mode, String query, String date) {
-        return getPostsResponse(offset, limit, mode, query, date, postRepository.findAll());
-    }
-
-    private ResponseEntity<PrePostsResponse> getPostsResponse(int offset, int limit, PostFilterMode mode, String query,
-                                                              String date, List<Post> sourcePosts) {
-        List<Predicate<Post>> predicates = new ArrayList<>();
-        predicates.add(post -> post.getIsActive() > 0);
-        predicates.add(post -> post.getModerationStatus().equals(ModerationStatus.ACCEPTED));
-        if (query != null) {
-            predicates.add(post -> post.getText().contains(query.trim()));
-        }
-        if (date != null) {
-            predicates.add(post -> getFormattedDate(post.getTime()).equals(date));
-        }
-        Predicate<Post> compositPredicate = predicates.stream().reduce(predicate -> true, Predicate::and);
-        sourcePosts = sourcePosts.stream().filter(compositPredicate).collect(Collectors.toList());
-        Comparator<Post> comparator;
+    public ResponseEntity<PrePostsResponse> getAllPosts(int offset, int limit, PostFilterMode mode) {
+        Page<Post> posts;
         switch (mode) {
-            case recent:
-                comparator = Comparator.comparing(Post::getTime).reversed();
-                break;
             case best:
-                comparator = Comparator.comparingInt(Post::getLikes).reversed().thenComparingInt(Post::getDislikes);
+                posts = postRepository.findAllMostLikedPosts(PageRequest.of(offset, limit));
                 break;
             case popular:
-                comparator = Comparator.comparingInt(Post::getCommentCount).reversed();
+                posts = postRepository.findAllMostCommentedPosts(PageRequest.of(offset, limit));
                 break;
             case early:
-                comparator = Comparator.comparing(Post::getTime);
+                posts = postRepository.findAll(PageRequest.of(offset, limit, Sort.by("time").ascending()));
                 break;
             default:
-                return new ResponseEntity<>(new PrePostsResponse(), HttpStatus.BAD_REQUEST);
+                posts = postRepository.findAll(PageRequest.of(offset, limit, DEFAULT_SORT));
         }
-        sourcePosts.sort(comparator);
+        return getPostsResponse(posts);
+    }
+
+    public ResponseEntity<PrePostsResponse> getPostsBySearch(int offset, int limit, String query) {
+        return getPostsResponse(postRepository.findAllBySearch(query, PageRequest.of(offset, limit, DEFAULT_SORT)));
+    }
+
+    public ResponseEntity<PrePostsResponse> getPostsByDate(int offset, int limit, String date) throws ParseException {
+        return getPostsResponse(postRepository.findAllByDate(date, PageRequest.of(offset, limit, DEFAULT_SORT)));
+    }
+
+    private ResponseEntity<PrePostsResponse> getPostsResponse(Page<Post> posts) {
         PrePostsResponse prePostsResponse = new PrePostsResponse();
-        prePostsResponse.setCount(sourcePosts.size());
-        if (offset >= sourcePosts.size() || offset < 0 || limit <= 0) {
-            return new ResponseEntity<>(new PrePostsResponse(), HttpStatus.BAD_REQUEST);
-        }
-        if (offset + limit > sourcePosts.size()) {
-            limit = sourcePosts.size() - offset;
-        }
-        for (Post post : sourcePosts.subList(offset, offset + limit)) {
+        prePostsResponse.setCount((int) posts.getTotalElements());
+        for (Post post : posts) {
             int likeCount = 0;
             int dislikeCount = 0;
             for (PostVote vote : post.getPostVotes()) {
@@ -82,7 +70,7 @@ public class PostService {
             }
             PrePostResponse prePostResponse = new PrePostResponse();
             prePostResponse.setId(post.getId());
-            prePostResponse.setTimestamp(post.getTime().getTime() / 1000);
+            prePostResponse.setTimestamp(post.getTime().getTime() / MILLIS_IN_SECOND);
             prePostResponse.setUser(new SimpleUser(post.getUser().getId(), post.getUser().getName()));
             prePostResponse.setTitle(post.getTitle());
             prePostResponse.setAnnounce(getAnnounceTagLess(post.getText()));
@@ -96,9 +84,8 @@ public class PostService {
     }
 
     public ResponseEntity<PrePostsResponse> getPostsByTag(int offset, int limit, String tagName) {
-        Tag tag = tagRepository.findAll().stream().filter(t -> t.getName().equals(tagName.trim().toUpperCase())).findFirst().orElseThrow();
-        List<Post> sourcePosts = new ArrayList<>(tag.getPosts());
-        return getPostsResponse(offset, limit, PostFilterMode.recent, null, null, sourcePosts);
+        Page<Post> posts = postRepository.findAllByTagsContains(new Tag(tagName), PageRequest.of(offset, limit, Sort.by("time").descending()));
+        return getPostsResponse(posts);
     }
 
     public ResponseEntity<FullPostResponse> getPostsById(int id) {
@@ -121,7 +108,7 @@ public class PostService {
             }
         }
         fullPostResponse.setId(post.getId());
-        fullPostResponse.setTimestamp(post.getTime().getTime() / 1000);
+        fullPostResponse.setTimestamp(post.getTime().getTime() / MILLIS_IN_SECOND);
         fullPostResponse.setActive(isPublished);
         fullPostResponse.setUser(new SimpleUser(post.getUser().getId(), post.getUser().getName()));
         fullPostResponse.setTitle(post.getTitle());
@@ -160,14 +147,18 @@ public class PostService {
             calendarResponse.getYears().add(post.getTime().toLocalDateTime().getYear());
             if (post.getIsActive() > 0 && post.getModerationStatus().equals(ModerationStatus.ACCEPTED)
                     && post.getTime().toLocalDateTime().getYear() == year) {
-                String date = getFormattedDate(post.getTime());
+                String date = getToFormattedDate(post.getTime());
                 calendarResponse.getPosts().put(date, calendarResponse.getPosts().getOrDefault(date, 0) + 1);
             }
         }
         return new ResponseEntity<>(calendarResponse, HttpStatus.OK);
     }
 
-    private String getFormattedDate(Timestamp timestamp) {
+    private String getToFormattedDate(Timestamp timestamp) {
         return DATE_FORMAT.format(timestamp.getTime());
+    }
+
+    private Timestamp getFromFormattedDate(String date) throws ParseException {
+        return new Timestamp(DATE_FORMAT.parse(date).getTime());
     }
 }

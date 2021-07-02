@@ -5,21 +5,13 @@ import org.skillbox.springbootrest.model.SimpleUser;
 public class PrePostResponse {
 
     private int id;
-
     private long timestamp;
-
     private SimpleUser user;
-
     private String title;
-
     private String announce;
-
     private int likeCount;
-
     private int dislikeCount;
-
     private int commentCount;
-
     private int viewCount;
 
     public int getId() {

@@ -9,8 +9,15 @@ blog:
 general:
     expiredPeriod: 3600000
     passwordMinLength: 6
+    multiUserMode: NO
+    postPremoderation: YES
+    statisticsIsPublic: YES
 
 spring:
+    flyway:
+        url: jdbc:mysql://localhost:3306/blog_engine?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+        user: root
+        password: 3141592653589+Pi
     datasource:
         initialization-mode: always
         password: 3141592653589+Pi
@@ -21,6 +28,9 @@ spring:
             charset: UTF-8
             enabled: true
     jpa:
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         hibernate:
-            ddl-auto: none
+            ddl-auto: validate
         show-sql: false

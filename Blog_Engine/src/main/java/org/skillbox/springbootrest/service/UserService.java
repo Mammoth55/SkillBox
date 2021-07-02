@@ -53,7 +53,7 @@ public class UserService {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         User user = new User();
-        user.setIsModerator(0);
+        user.setIsModerator((byte) 0);
         user.setRegTime(Timestamp.from(Instant.now()));
         user.setName(registerRequest.getName());
         user.setEmail(registerRequest.geteMail());

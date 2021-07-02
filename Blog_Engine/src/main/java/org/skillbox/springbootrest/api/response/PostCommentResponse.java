@@ -6,11 +6,8 @@ import java.sql.Timestamp;
 public class PostCommentResponse {
 
     private int id;
-
     private Timestamp timestamp;
-
     private String text;
-
     private SimpleUserWithPhoto user;
 
     public int getId() {

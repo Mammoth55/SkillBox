@@ -2,6 +2,7 @@ package org.skillbox.springbootrest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -14,9 +15,11 @@ public class Post {
     @Column(name = "id")
     private int id;
 
+    @NotNull
     @JsonProperty("is_active")
-    private int isActive;
+    private byte isActive;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum('NEW', 'ACCEPTED', 'DECLINED')")
     @JsonProperty("moderation_status")
@@ -25,19 +28,24 @@ public class Post {
     @JsonProperty("moderator_id")
     private int moderatorId;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
+    @NotNull
     @Column(name = "time")
     private Timestamp time;
 
+    @NotNull
     @Column(name = "title")
     private String title;
 
-    @Column(name = "text")
+    @NotNull
+    @Column(name = "text", length = 9999)
     private String text;
 
+    @NotNull
     @JsonProperty("view_count")
     private int viewCount;
 
@@ -62,11 +70,11 @@ public class Post {
         this.id = id;
     }
 
-    public int getIsActive() {
+    public byte getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(int isActive) {
+    public void setIsActive(byte isActive) {
         this.isActive = isActive;
     }
 
@@ -136,6 +144,10 @@ public class Post {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public boolean isContainsTagName(String tagName) {
+        return this.tags.contains(new Tag(tagName));
     }
 
     public Set<PostComment> getPostComments() {

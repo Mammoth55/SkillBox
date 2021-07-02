@@ -2,6 +2,7 @@ package org.skillbox.springbootrest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,12 +14,15 @@ public class CaptchaCode {
     @Column(name = "id")
     private int id;
 
+    @NotNull
     @Column(name = "time")
     private Timestamp time;
 
+    @NotNull
     @Column(name = "code")
     private String code;
 
+    @NotNull
     @JsonProperty("secret_code")
     private String secretCode;
 

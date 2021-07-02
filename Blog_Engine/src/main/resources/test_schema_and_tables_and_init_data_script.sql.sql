@@ -21,7 +21,7 @@ CREATE TABLE users
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     code VARCHAR(255),
-    photo TEXT
+    photo VARCHAR(9999)
 ) ENGINE=InnoDB AUTO_INCREMENT=5;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE posts
     is_active TINYINT NOT NULL DEFAULT 1,
     moderation_status enum('NEW','ACCEPTED','DECLINED') NOT NULL DEFAULT 'NEW',
     moderator_id INT,
-    text text NOT NULL,
+    text VARCHAR(9999) NOT NULL,
     time datetime NOT NULL,
     title VARCHAR(255) NOT NULL,
     user_id INT NOT NULL,
@@ -132,7 +132,7 @@ CREATE TABLE post_comments
     post_id INT NOT NULL,
     user_id INT NOT NULL,
     time DATETIME NOT NULL,
-    text TEXT NOT NULL
+    text VARCHAR(9999) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=8;
 
 --
@@ -153,16 +153,16 @@ CREATE TABLE captcha_codes
 (
     Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     time DATETIME NOT NULL,
-    code TINYTEXT NOT NULL,
-    secret_code TINYTEXT NOT NULL
+    code VARCHAR(255) NOT NULL,
+    secret_code VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4;
 
 --
 -- Dumping data for table `captcha_codes`
 --
-insert into captcha_codes values(1, '2021-05-14 23:21:00', 'SpRiNg00000000000000', 'JaVa');
-insert into captcha_codes values(2, '2021-05-24 23:21:00', '321321321321321321', 'OteLLo');
-insert into captcha_codes values(3, '2021-06-06 00:12:00', 'роылвоарлоыпаоылвпаыв', 'SpringBOOT');
+insert into captcha_codes values(1, '2021-06-05 23:21:00', 'выхухоль55', '1111111111');
+insert into captcha_codes values(2, '2021-06-06 08:22:00', 'шиншилла99', '2222222222');
+insert into captcha_codes values(3, '2021-06-07 17:41:00', 'интуиция00', '-1000000000');
 
 --
 -- Table structure for table `global_settings`

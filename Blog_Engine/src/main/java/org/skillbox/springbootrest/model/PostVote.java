@@ -1,6 +1,7 @@
 package org.skillbox.springbootrest.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -12,19 +13,23 @@ public class PostVote {
     @Column(name = "id")
     private int id;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id", insertable = false, updatable = false)
     private Post post;
 
+    @NotNull
     @Column(name = "time")
     private Timestamp time;
 
+    @NotNull
     @Column(name = "value")
-    private int value;
+    private byte value;
 
     public int getId() {
         return id;
@@ -58,11 +63,11 @@ public class PostVote {
         this.time = time;
     }
 
-    public int getValue() {
+    public byte getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(byte value) {
         this.value = value;
     }
 }

@@ -6,7 +6,6 @@ import java.util.List;
 public class PrePostsResponse {
 
     private int count;
-
     private List<PrePostResponse> posts = new ArrayList<>();
 
     public int getCount() {

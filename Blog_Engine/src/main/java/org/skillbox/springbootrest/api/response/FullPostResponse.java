@@ -7,25 +7,15 @@ import java.util.Set;
 public class FullPostResponse {
 
     private int id;
-
     private long timestamp;
-
     private boolean active;
-
     private SimpleUser user;
-
     private String title;
-
     private String text;
-
     private int likeCount;
-
     private int dislikeCount;
-
     private int viewCount;
-
     private Set<PostCommentResponse> comments = new HashSet<>();
-
     private Set<String> tags = new HashSet<>();
 
     public int getId() {

@@ -2,6 +2,7 @@ package org.skillbox.springbootrest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
@@ -15,25 +16,30 @@ public class User {
     @Column(name = "id")
     private int id;
 
+    @NotNull
     @JsonProperty("is_moderator")
-    private int isModerator;
+    private byte isModerator;
 
+    @NotNull
     @JsonProperty("reg_time")
     private Timestamp regTime;
 
+    @NotNull
     @Column(name = "name")
     private String name;
 
+    @NotNull
     @Column(name = "email")
     private String email;
 
+    @NotNull
     @Column(name = "password")
     private String password;
 
     @Column(name = "code")
     private String code;
 
-    @Column(name = "photo")
+    @Column(name = "photo", length = 9999)
     private String photo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -53,11 +59,11 @@ public class User {
         this.id = id;
     }
 
-    public int getIsModerator() {
+    public byte getIsModerator() {
         return isModerator;
     }
 
-    public void setIsModerator(int isModerator) {
+    public void setIsModerator(byte isModerator) {
         this.isModerator = isModerator;
     }
 
